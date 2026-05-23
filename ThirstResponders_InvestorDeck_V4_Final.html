@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thirst Responders — Master Investor Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Sora:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:    #00E5CC;
+  --teal-dk: #009688;
+  --night:   #060C0A;
+  --ink:     #0D1710;
+  --slate:   #152219;
+  --dim:     #1C2E23;
+  --white:   #F0FBF6;
+  --gold:    #F4C430;
+  --ember:   #FF4D2E;
+  --mid:     #4D6B5A;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { background:var(--night); color:var(--white); font-family:'Sora',sans-serif; height:100%; width:100%; overflow:hidden; }
+
+/* DECK */
+#deck { width:100vw; height:100vh; position:relative; overflow:hidden; }
+.slide {
+  position:absolute; inset:0; opacity:0; pointer-events:none;
+  transition:opacity 0.45s ease;
+  overflow-y:auto; overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin; scrollbar-color:var(--teal-dk) transparent;
+}
+.slide::-webkit-scrollbar { width:3px; }
+.slide::-webkit-scrollbar-thumb { background:var(--teal-dk); border-radius:2px; }
+.slide.active { opacity:1; pointer-events:all; }
+
+/* NAV */
+#nav {
+  position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+  z-index:200; display:flex; align-items:center; gap:10px;
+  background:rgba(6,12,10,0.88); backdrop-filter:blur(14px);
+  border:1px solid rgba(0,229,204,0.14); border-radius:50px;
+  padding:8px 16px; transition:opacity 0.4s ease, transform 0.4s ease;
+}
+#nav.hidden { opacity:0; transform:translateX(-50%) translateY(10px); pointer-events:none; }
+#nav button { background:none; border:none; color:var(--teal); font-family:'Space Mono',monospace; font-size:11px; cursor:pointer; padding:3px 9px; border-radius:20px; transition:background 0.2s; white-space:nowrap; }
+#nav button:hover { background:rgba(0,229,204,0.1); }
+#nav button:disabled { color:var(--mid); cursor:default; }
+#nav button:disabled:hover { background:none; }
+#counter { font-family:'Space Mono',monospace; font-size:10px; color:var(--mid); min-width:36px; text-align:center; }
+.dots { display:flex; gap:4px; align-items:center; }
+.dot { width:4px; height:4px; border-radius:50%; background:var(--mid); cursor:pointer; transition:all 0.22s; flex-shrink:0; }
+.dot.active { background:var(--teal); width:14px; border-radius:2px; }
+
+/* TYPOGRAPHY */
+.eyebrow { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal); margin-bottom:12px; }
+.display { font-family:'Unbounded',sans-serif; font-size:clamp(42px,8vw,96px); font-weight:900; line-height:0.88; letter-spacing:-0.02em; }
+.headline { font-family:'Unbounded',sans-serif; font-size:clamp(20px,3vw,36px); font-weight:700; line-height:1.1; }
+.body { font-size:14px; font-weight:300; color:rgba(240,251,246,0.72); line-height:1.7; }
+.accent { color:var(--teal); }
+.gold { color:var(--gold); }
+.ember { color:var(--ember); }
+
+/* LAYOUT */
+.wrap { min-height:100vh; display:flex; flex-direction:column; padding:50px 54px 96px; position:relative; z-index:2; }
+.wrap.center { justify-content:center; }
+.two-col { display:flex; gap:44px; flex:1; }
+.col { flex:1; display:flex; flex-direction:column; min-width:0; }
+.col.center { justify-content:center; }
+
+/* BG */
+.bg-grid { position:absolute; inset:0; z-index:0; background-image:linear-gradient(rgba(0,229,204,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,204,0.03) 1px,transparent 1px); background-size:44px 44px; }
+.bg-glow { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse 70% 60% at 65% 35%, rgba(0,150,136,0.14) 0%,transparent 70%); }
+.bg-glow-l { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse 65% 70% at -5% 55%, rgba(0,229,204,0.09) 0%,transparent 55%); }
+.bg-glow-c { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse 80% 55% at 50% 50%, rgba(0,229,204,0.07) 0%,transparent 65%); }
+.bg-noise { position:absolute; inset:0; z-index:0; opacity:0.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.sn { position:absolute; top:22px; right:44px; font-family:'Space Mono',monospace; font-size:9px; color:rgba(0,229,204,0.22); letter-spacing:0.1em; z-index:3; }
+
+/* ELEMENTS */
+.rule { width:38px; height:2px; background:var(--teal); border-radius:1px; margin:15px 0; }
+.rule.full { width:100%; height:1px; background:rgba(0,229,204,0.11); margin:18px 0; }
+.card { background:var(--dim); border:1px solid rgba(0,229,204,0.1); border-radius:10px; padding:16px 18px; }
+.card.lit { border-color:rgba(0,229,204,0.28); box-shadow:0 0 28px rgba(0,229,204,0.06); }
+.clabel { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.13em; text-transform:uppercase; color:var(--teal); margin-bottom:5px; }
+.pill { display:inline-block; background:rgba(0,229,204,0.09); border:1px solid rgba(0,229,204,0.22); color:var(--teal); font-size:11px; font-weight:500; padding:3px 10px; border-radius:20px; }
+.pill.gp { background:rgba(244,196,48,0.08); border-color:rgba(244,196,48,0.22); color:var(--gold); }
+.cl { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.cl li { display:flex; gap:9px; font-size:13px; color:rgba(240,251,246,0.75); line-height:1.55; align-items:flex-start; word-break:break-word; overflow-wrap:anywhere; }
+.cl li::before { content:'→'; color:var(--teal); font-family:'Space Mono',monospace; font-size:10px; flex-shrink:0; margin-top:2px; }
+.pq { border-left:2px solid var(--teal); padding:11px 16px; background:rgba(0,229,204,0.04); border-radius:0 6px 6px 0; font-size:13px; color:rgba(240,251,246,0.62); font-style:italic; line-height:1.65; }
+.dt { width:100%; border-collapse:collapse; font-size:12px; }
+.dt th { background:rgba(0,229,204,0.09); color:var(--teal); font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.11em; text-transform:uppercase; padding:8px 12px; text-align:left; border-bottom:1px solid rgba(0,229,204,0.14); }
+.dt td { padding:7px 12px; border-bottom:1px solid rgba(255,255,255,0.04); color:rgba(240,251,246,0.74); vertical-align:top; }
+.dt tr:last-child td { border-bottom:none; }
+.dt tr.hl td { background:rgba(0,229,204,0.06); color:var(--white); font-weight:600; }
+.dt td.mono { font-family:'Space Mono',monospace; font-size:11px; color:var(--teal); }
+.dt td.bold { font-weight:600; color:var(--white); }
+.stats { display:flex; gap:10px; }
+.stat { flex:1; background:var(--slate); border:1px solid rgba(0,229,204,0.1); border-radius:8px; padding:13px 15px; }
+.stat-n { font-family:'Unbounded',sans-serif; font-size:24px; font-weight:700; color:var(--teal); line-height:1; }
+.stat-l { font-size:10px; color:rgba(240,251,246,0.42); margin-top:4px; line-height:1.4; }
+.funnel { display:flex; flex-direction:column; gap:7px; }
+.f-row { display:flex; align-items:center; gap:11px; }
+.f-lbl { font-family:'Space Mono',monospace; font-size:9px; color:var(--mid); text-transform:uppercase; width:28px; text-align:right; }
+.f-track { flex:1; height:30px; background:var(--dim); border-radius:4px; overflow:hidden; }
+.f-bar { height:100%; border-radius:4px; display:flex; align-items:center; padding:0 11px; font-family:'Space Mono',monospace; font-size:10px; color:var(--ink); }
+.f-val { font-family:'Unbounded',sans-serif; font-size:16px; font-weight:700; min-width:80px; text-align:right; }
+.comp { display:flex; gap:9px; align-items:center; padding:9px 13px; border-radius:6px; border:1px solid rgba(255,255,255,0.05); background:var(--slate); }
+.comp .who { font-weight:600; font-size:12px; min-width:138px; color:var(--white); }
+.comp .what { flex:1; font-size:11px; color:rgba(240,251,246,0.48); }
+.comp .gap { font-size:11px; color:var(--ember); min-width:128px; text-align:right; }
+.comp.tr-row { border-color:rgba(0,229,204,0.32); background:rgba(0,229,204,0.06); }
+.comp.tr-row .who { color:var(--teal); font-size:13px; }
+.comp.tr-row .gap { color:var(--teal); font-weight:600; }
+.prow { display:flex; align-items:center; gap:0; margin-bottom:9px; }
+.pyr { font-family:'Space Mono',monospace; font-size:10px; color:var(--mid); width:46px; text-align:right; padding-right:11px; }
+.ptrack { flex:1; height:24px; background:var(--dim); border-radius:4px; overflow:hidden; }
+.pbar { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--teal-dk),var(--teal)); display:flex; align-items:center; padding-left:9px; font-family:'Unbounded',sans-serif; font-size:12px; font-weight:700; color:var(--ink); }
+.pnote { font-size:10px; color:rgba(240,251,246,0.33); padding-left:9px; min-width:155px; }
+.spg { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.sp { background:var(--slate); border:1px solid rgba(0,229,204,0.1); border-radius:8px; padding:13px 15px; }
+.sp .sc { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.11em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+.sp .sb { font-size:12px; color:rgba(240,251,246,0.62); line-height:1.5; }
+.sg { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:9px; }
+.sgc { background:var(--slate); border-radius:8px; padding:13px 15px; border-top:2px solid; }
+.tl { display:flex; flex-direction:column; }
+.tli { display:flex; gap:0; position:relative; }
+.tll { display:flex; flex-direction:column; align-items:center; padding-right:14px; }
+.tld { width:9px; height:9px; border-radius:50%; background:var(--teal); flex-shrink:0; margin-top:4px; }
+.tls { flex:1; width:1px; background:rgba(0,229,204,0.14); min-height:26px; }
+.tlc { padding-bottom:20px; flex:1; }
+.tlt { font-family:'Unbounded',sans-serif; font-size:12px; font-weight:600; color:var(--white); margin-bottom:3px; }
+.tlb { font-size:12px; color:rgba(240,251,246,0.52); line-height:1.55; }
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:9px; }
+
+/* COVER */
+#s1 { background:var(--ink); }
+.hero {
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(56px,11vw,138px);
+  font-weight:900;
+  line-height:0.98;
+  letter-spacing:-0.01em;
+  display:block;
+  padding-right:0.15em;
+  box-sizing:border-box;
+  overflow:visible;
+  background:linear-gradient(135deg,#F0FBF6 25%,#00E5CC 82%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.tmain { font-family:'Unbounded',sans-serif; font-size:clamp(12px,1.7vw,19px); letter-spacing:0.28em; color:var(--teal); margin-top:14px; }
+.spills { display:flex; gap:7px; flex-wrap:wrap; margin-top:20px; }
+.fline { font-family:'Space Mono',monospace; font-size:10px; color:rgba(240,251,246,0.28); margin-top:32px; letter-spacing:0.07em; }
+.cmark { position:absolute; bottom:88px; right:48px; font-family:'Space Mono',monospace; font-size:9px; color:rgba(240,251,246,0.13); letter-spacing:0.13em; text-transform:uppercase; z-index:3; }
+
+/* MOBILE */
+@media (max-width:680px) {
+  .wrap { padding:32px 20px 96px; }
+  .two-col { flex-direction:column; gap:24px; }
+  .sg { grid-template-columns:1fr 1fr; }
+  .spg { grid-template-columns:1fr; }
+  .g2 { grid-template-columns:1fr; }
+  .g3 { grid-template-columns:1fr; }
+  .stats { flex-direction:column; }
+  .f-val { min-width:64px; font-size:13px; }
+  .comp .gap { min-width:auto; font-size:10px; }
+  .pnote { min-width:auto; }
+  .hero { font-size:clamp(38px,13vw,72px); }
+  .sn { right:18px; top:14px; }
+  #nav { gap:6px; padding:7px 12px; }
+  #nav button { font-size:10px; padding:2px 7px; }
+}
+</style>
+</head>
+<body>
+<div id="deck">
+
+<!-- S1 COVER -->
+<div class="slide active" id="s1">
+  <div class="bg-grid"></div><div class="bg-glow"></div><div class="bg-noise"></div>
+  <div class="sn">CONFIDENTIAL · 2026</div>
+  <div class="wrap center" style="max-width:780px;">
+    <div class="eyebrow">Master Investor Deck · V4</div>
+    <div class="hero">THIRST<br>RESPONDERS</div>
+    <div class="tmain">QUENCH THE ALARM.</div>
+    <div class="spills">
+      <span class="pill">Hydration</span>
+      <span class="pill">Recovery</span>
+      <span class="pill">Experiential Activation</span>
+      <span class="pill">Wellness Infrastructure</span>
+    </div>
+    <div class="rule" style="margin-top:26px;"></div>
+    <p class="body" style="font-size:15px; max-width:510px; font-style:italic; color:rgba(240,251,246,0.48);">An experiential nightlife wellness company deploying premium hydration, recovery, and brand activation at festivals, nightlife venues, universities, and live events.</p>
+    <div class="fline">B.D. HARRISON · FOUNDER & CEO · ELIZABETHTOWN, KY</div>
+  </div>
+  <div class="cmark">NOT FOR DISTRIBUTION</div>
+</div>
+
+<!-- S2 PROBLEM -->
+<div class="slide" id="s2">
+  <div class="bg-grid"></div><div class="bg-glow-l"></div>
+  <div class="sn">02 / THE PROBLEM</div>
+  <div class="wrap">
+    <div class="two-col" style="align-items:center;">
+      <div class="col center">
+        <div class="eyebrow">The Gap No One's Filling</div>
+        <div class="headline">Events Are Built to<br><span class="accent">Sell Drinks.</span><br>Not Save People.</div>
+        <div class="rule"></div>
+        <p class="body" style="margin-bottom:18px;">The modern nightlife and festival economy is engineered around consumption — alcohol revenue, energy drink sponsorships, late-night food. Recovery, hydration, and genuine guest care are afterthoughts. Sometimes, they're not a thought at all.</p>
+        <div class="pq">"After cutting off an intoxicated guest at a DC wedding event, the only recovery option available was tap water from a bathroom sink. That moment exposed how little wellness infrastructure exists inside modern event culture."
+          <div style="font-style:normal; font-size:11px; color:rgba(240,251,246,0.32); margin-top:7px;">— B.D. Harrison, Founder</div>
+        </div>
+      </div>
+      <div class="col center" style="gap:9px;">
+        <div class="clabel">What's Missing at Every Event</div>
+        <ul class="cl">
+          <li>Meaningful hydration beyond a single water fountain</li>
+          <li>Non-alcoholic social experiences with actual cultural credibility</li>
+          <li>Mid-event and post-consumption recovery options</li>
+          <li>Wellness-forward sponsorships that aren't just branded tents</li>
+          <li>Safety infrastructure that feels like <em>hospitality</em>, not liability management</li>
+          <li>Memorable touchpoints for the 49% of Americans cutting back on alcohol</li>
+        </ul>
+        <div class="rule full"></div>
+        <div class="card lit">
+          <div class="clabel">The Strategic Tension</div>
+          <p class="body" style="font-size:12px; margin-top:4px;">Consumers want healthier options, better experiences, and more intentional social culture. Most events still operate on 1990s consumption models. <span class="accent">That's the gap Thirst Responders fills.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S3 WHY NOW -->
+<div class="slide" id="s3">
+  <div class="bg-grid"></div><div class="bg-glow"></div>
+  <div class="sn">03 / WHY NOW</div>
+  <div class="wrap">
+    <div class="eyebrow">The Shift Is Already Happening</div>
+    <div class="headline" style="margin-bottom:6px;">The Consumer Has <span class="accent">Already Left the Bar.</span><br>Events Haven't Noticed Yet.</div>
+    <div class="rule"></div>
+    <div class="g3" style="margin-bottom:12px;">
+      <div class="card"><div class="stat-n accent">49%</div><p class="body" style="font-size:12px; margin-top:5px;">of Americans plan to drink less in 2025 — a <strong style="color:var(--white)">44% jump</strong> since 2023</p><div style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(0,229,204,0.38); margin-top:5px;">NCSolutions · Jan 2025</div></div>
+      <div class="card"><div class="stat-n accent">65%</div><p class="body" style="font-size:12px; margin-top:5px;">of Gen Z cutting back. <strong style="color:var(--white)">39% going fully dry</strong> for all of 2025</p><div style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(0,229,204,0.38); margin-top:5px;">NCSolutions · Jan 2025</div></div>
+      <div class="card"><div class="stat-n accent">62%</div><p class="body" style="font-size:12px; margin-top:5px;">of adults under 35 drink alcohol — <strong style="color:var(--white)">down from 72%</strong> two decades ago</p><div style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(0,229,204,0.38); margin-top:5px;">Gallup · 2024</div></div>
+      <div class="card"><div class="stat-n gold">+22%</div><p class="body" style="font-size:12px; margin-top:5px;">YoY growth in NA beer purchases, Dec 2023–Nov 2024</p><div style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(244,196,48,0.38); margin-top:5px;">NCSolutions · 2025</div></div>
+      <div class="card"><div class="stat-n gold">85%</div><p class="body" style="font-size:12px; margin-top:5px;">of consumers more likely to buy from a brand after a <strong style="color:var(--white)">live brand event</strong></p><div style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(244,196,48,0.38); margin-top:5px;">The Drum · 2024</div></div>
+      <div class="card"><div class="stat-n gold">$50B</div><p class="body" style="font-size:12px; margin-top:5px;">US functional beverage market — hydration is the <strong style="color:var(--white)">fastest-growing segment</strong></p><div style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(244,196,48,0.38); margin-top:5px;">Glanbia · 2024</div></div>
+    </div>
+    <div class="card lit"><p class="body" style="font-size:13px; font-style:italic;"><span class="accent">The window:</span> Sober-curious culture is mainstream. Live events are at record revenue. No company has built the branded wellness infrastructure layer. The category exists. It's just empty.</p></div>
+  </div>
+</div>
+
+<!-- S4 INTRODUCING TR -->
+<div class="slide" id="s4">
+  <div class="bg-grid"></div><div class="bg-glow-l"></div>
+  <div class="sn">04 / THE SOLUTION</div>
+  <div class="wrap">
+    <div class="two-col" style="align-items:center;">
+      <div class="col center">
+        <div class="eyebrow">What We Built</div>
+        <div class="headline">Not a Booth.<br>Not a Brand.<br><span class="accent">Infrastructure.</span></div>
+        <div class="rule"></div>
+        <p class="body" style="margin-bottom:16px;">Thirst Responders is a deployable experiential wellness platform — a fully branded, mobile activation system sitting at the intersection of premium hospitality, rapid-response hydration, and cultural engagement.<br><br>We don't just show up with water. We show up as the best moment at the event.</p>
+        <div class="pq" style="font-style:normal; font-size:13px;"><span class="accent" style="font-size:15px; font-weight:600;">"EMT meets summer camp chaos."</span><br><br>A playful but functional recovery experience designed to refresh guests, extend safe enjoyment, and create the most shareable — and most meaningful — moment at any event.</div>
+      </div>
+      <div class="col center" style="gap:9px;">
+        <div class="clabel" style="margin-bottom:3px;">What We Deploy</div>
+        <div class="g2">
+          <div class="card"><div class="clabel">💧 Hydration</div><p class="body" style="font-size:11px;">Curated NA beverages, electrolyte stations, functional drinks</p></div>
+          <div class="card"><div class="clabel">🛌 Recovery</div><p class="body" style="font-size:11px;">Rest zones, cooling spaces, wellness kits, recovery products</p></div>
+          <div class="card"><div class="clabel">📡 Activation</div><p class="body" style="font-size:11px;">Sponsor integrations, co-branded experiences, QR content moments</p></div>
+          <div class="card"><div class="clabel">🤝 Hospitality</div><p class="body" style="font-size:11px;">Trained brand ambassadors, social-first guest engagement</p></div>
+        </div>
+        <div class="rule full"></div>
+        <div class="card lit"><div class="clabel">Brand Position</div><p class="body" style="font-size:12px; font-style:italic; margin-top:4px;">"Not just a beverage brand. <span class="accent">Wellness infrastructure for event culture.</span> Service + infrastructure, not just product."</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S5 FOUNDER STORY -->
+<div class="slide" id="s5">
+  <div class="bg-grid"></div><div class="bg-glow"></div>
+  <div class="sn">05 / FOUNDER STORY</div>
+  <div class="wrap">
+    <div class="two-col" style="align-items:center;">
+      <div class="col center">
+        <div class="eyebrow">Why This Person. Why This Idea.</div>
+        <div class="headline">This Didn't<br>Start in a<br><span class="accent">Boardroom.</span></div>
+        <div class="rule"></div>
+        <p class="body" style="margin-bottom:16px;">B.D. Harrison has spent 15+ years inside the culture Thirst Responders serves — running events, working nightlife, building communities, writing poetry about survival and recovery. He didn't discover this market in a research report. He lived in it long enough to see what it was missing.</p>
+        <div class="pq">"I've cut off guests at 2 AM with nowhere to send them. I've watched people spiral when the only option was more alcohol or the parking lot. Thirst Responders is the thing I kept wishing existed every time I worked an event."
+          <div style="font-style:normal; font-size:11px; color:rgba(240,251,246,0.3); margin-top:7px;">— B.D. Harrison</div>
+        </div>
+      </div>
+      <div class="col center" style="gap:11px;">
+        <div class="card lit">
+          <div class="clabel">B.D. Harrison — Founder & CEO</div>
+          <ul class="cl" style="margin-top:9px; gap:8px;">
+            <li>15+ years in nightlife, hospitality, and service industry operations</li>
+            <li>Experience in beverage, spirits, and experiential event environments</li>
+            <li>Founder, OMaP / Of Mics & Pens — live poetry & performance platform, proof of event execution and community-building at scale</li>
+            <li>Published poet and creative entrepreneur — brand identity isn't hired, it's embedded</li>
+            <li>Direct, lived experience with the exact gap Thirst Responders fills</li>
+          </ul>
+        </div>
+        <div class="card"><div class="clabel">Why Founder-Market Fit Is the Moat</div><p class="body" style="font-size:12px; margin-top:4px;">A corporate competitor can match the product. They cannot match the credibility. B.D. Harrison walks into events as someone the culture already trusts — not as a brand rep, but as a community member. That trust is not for sale.</p></div>
+        <div style="display:flex; gap:7px; flex-wrap:wrap;">
+          <span class="pill">Nightlife Veteran</span>
+          <span class="pill">Community Organizer</span>
+          <span class="pill">Poet / Creative</span>
+          <span class="pill gp">Culture-First Builder</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 DEPLOYMENT -->
+<div class="slide" id="s6">
+  <div class="bg-grid"></div><div class="bg-glow-l"></div>
+  <div class="sn">06 / DEPLOYMENT</div>
+  <div class="wrap">
+    <div class="eyebrow">Operational Model</div>
+    <div class="headline" style="margin-bottom:6px;">One Unit. <span class="accent">Five Revenue Moments.</span> Every Event.</div>
+    <div class="rule"></div>
+    <div style="display:flex; gap:9px; margin-top:8px; flex-wrap:wrap;">
+      <div class="card" style="flex:1; min-width:155px;"><div class="clabel">① Partnership</div><p class="body" style="font-size:12px; margin-top:5px;">Contract with festival, venue, or promoter. Sponsor integrations confirmed before arrival.</p></div>
+      <div style="color:var(--teal); font-size:16px; display:flex; align-items:center; padding-top:8px;">→</div>
+      <div class="card" style="flex:1; min-width:155px;"><div class="clabel">② Setup</div><p class="body" style="font-size:12px; margin-top:5px;">Mobile unit deploys in 2–3 hours. Hydration stations, recovery zones, branded signage all live.</p></div>
+      <div style="color:var(--teal); font-size:16px; display:flex; align-items:center; padding-top:8px;">→</div>
+      <div class="card" style="flex:1; min-width:155px;"><div class="clabel">③ Guest Experience</div><p class="body" style="font-size:12px; margin-top:5px;">TR ambassadors engage guests. Hydration, electrolytes, recovery products, social content moments.</p></div>
+      <div style="color:var(--teal); font-size:16px; display:flex; align-items:center; padding-top:8px;">→</div>
+      <div class="card" style="flex:1; min-width:155px;"><div class="clabel">④ Sponsor Value</div><p class="body" style="font-size:12px; margin-top:5px;">Brand placement, sampling, content capture, audience engagement, measurable ROI.</p></div>
+      <div style="color:var(--teal); font-size:16px; display:flex; align-items:center; padding-top:8px;">→</div>
+      <div class="card" style="flex:1; min-width:155px;"><div class="clabel">⑤ Reporting</div><p class="body" style="font-size:12px; margin-top:5px;">Post-event data: engagement, impressions, social reach. This report sells the next sponsor deal.</p></div>
+    </div>
+    <div class="rule full" style="margin-top:16px;"></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">2–3 hr</div><div class="stat-l">Full setup, any event</div></div>
+      <div class="stat"><div class="stat-n">Asset-Light</div><div class="stat-l">No venues, no medical licensing</div></div>
+      <div class="stat"><div class="stat-n">98%</div><div class="stat-l">of attendees create digital/social content at brand events (EventTrack, 2016 Benchmark Report)</div></div>
+      <div class="stat"><div class="stat-n">3–5:1</div><div class="stat-l">Typical ROI range for well-designed experiential campaigns; top activations reach 10:1 (Good Kids Agency, 2025)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S7 REVENUE -->
+<div class="slide" id="s7">
+  <div class="bg-grid"></div><div class="bg-glow"></div>
+  <div class="sn">07 / REVENUE MODEL</div>
+  <div class="wrap">
+    <div class="eyebrow">Business Architecture</div>
+    <div class="headline" style="margin-bottom:6px;">Six Streams. <span class="accent">One Deployment.</span> Every Event Pays Multiple Ways.</div>
+    <div class="rule"></div>
+    <table class="dt" style="margin-top:9px;">
+      <thead><tr><th>Revenue Stream</th><th>Description</th><th>Per-Event / Deal</th><th>Margin</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Event Activation Fees</td><td>Event organizers pay TR to deploy on-site wellness infrastructure</td><td class="mono">$500–$5,000</td><td><span class="pill" style="font-size:9px; padding:2px 7px;">High</span></td></tr>
+        <tr><td class="bold">Beverage Sales</td><td>Curated NA drinks, electrolytes, functional beverages at events</td><td class="mono">$300–$2,000</td><td><span class="pill" style="font-size:9px; padding:2px 7px;">Medium</span></td></tr>
+        <tr><td class="bold accent">Brand Sponsorships</td><td>Beverage, wellness & lifestyle brands co-brand the activation</td><td class="mono accent">$1,000–$25,000</td><td><span class="pill" style="font-size:9px; padding:2px 7px; background:rgba(0,229,204,0.14);">Highest</span></td></tr>
+        <tr><td class="bold">Corporate Wellness</td><td>HR wellness days, retreats, launch events, company offsites</td><td class="mono">$1,500–$10,000</td><td><span class="pill" style="font-size:9px; padding:2px 7px;">High</span></td></tr>
+        <tr><td class="bold">University / Campus</td><td>Orientation, homecoming, Greek life, athletics, wellness weeks</td><td class="mono">$500–$3,000</td><td><span class="pill" style="font-size:9px; padding:2px 7px;">Recurring</span></td></tr>
+        <tr><td class="bold">E-Commerce</td><td>Recovery kits, branded merch, affiliate partnerships — DTC</td><td class="mono">$1K–$5K/mo</td><td><span class="pill" style="font-size:9px; padding:2px 7px;">Passive</span></td></tr>
+        <tr class="hl"><td class="bold">Long-Term</td><td>White-label, licensing/franchise, touring partnerships</td><td class="mono">Variable</td><td><span class="pill" style="font-size:9px; padding:2px 7px; background:rgba(0,229,204,0.14);">Exit Vehicle</span></td></tr>
+      </tbody>
+    </table>
+    <div class="rule full"></div>
+    <p class="body" style="font-size:12px; color:rgba(240,251,246,0.38); font-style:italic;">Every activation generates revenue from at least 3 of these 6 streams simultaneously. No other event vendor in this space does that.</p>
+  </div>
+</div>
+
+<!-- S8 MARKET -->
+<!-- FIX: corrected "32,000+ US music festivals" to accurate "800–1,200" figure.
+     The 32M figure refers to annual US festival ATTENDEES (Berklee/MBJ 2015),
+     not the number of festivals. Festival count per industry sources: ~800–1,200/yr. -->
+<div class="slide" id="s8">
+  <div class="bg-grid"></div><div class="bg-glow-l"></div>
+  <div class="sn">08 / MARKET OPPORTUNITY</div>
+  <div class="wrap">
+    <div class="two-col" style="align-items:center;">
+      <div class="col center">
+        <div class="eyebrow">TAM · SAM · SOM</div>
+        <div class="headline">A $130B Ecosystem.<br><span class="accent">Zero Branded<br>Wellness Layer.</span></div>
+        <div class="rule"></div>
+        <p class="body" style="font-size:13px; margin-bottom:18px;">We're not chasing a trillion-dollar market. We're building the missing category inside four specific US markets we actually operate in — each cited, each scoped to what TR can physically reach.</p>
+        <div class="funnel">
+          <div class="f-row"><div class="f-lbl">TAM</div><div class="f-track"><div class="f-bar" style="width:100%; background:linear-gradient(90deg,#009688,#00E5CC);">US Events + Nightlife + Experiential + Beverages</div></div><div class="f-val accent">$130B+</div></div>
+          <div class="f-row"><div class="f-lbl">SAM</div><div class="f-track"><div class="f-bar" style="width:52%; background:rgba(0,229,204,0.34); color:var(--white); font-size:9px;">Mid-tier festivals · nightlife · corporate wellness</div></div><div class="f-val" style="color:rgba(240,251,246,0.62);">$800M–$2B</div></div>
+          <div class="f-row"><div class="f-lbl">SOM</div><div class="f-track"><div class="f-bar" style="width:14%; background:rgba(0,229,204,0.14); color:rgba(240,251,246,0.55); font-size:9px;">Yr 1</div></div><div class="f-val gold" style="font-size:13px;">$25–30K</div></div>
+        </div>
+        <p class="body" style="font-size:11px; color:rgba(240,251,246,0.28); margin-top:7px; font-style:italic;">We need 15 event organizers to pay us $750 each. That's Year 1.</p>
+      </div>
+      <div class="col center" style="gap:9px;">
+        <div class="clabel">US Markets TR Operates Within</div>
+        <table class="dt">
+          <thead><tr><th>Market</th><th>US Size</th><th>CAGR</th></tr></thead>
+          <tbody>
+            <tr><td class="bold">Live Music & Festivals</td><td class="mono">$18.5B</td><td class="mono">6.5%</td></tr>
+            <tr><td class="bold">Bars & Nightclubs</td><td class="mono">$40.3B</td><td class="mono">6.2%</td></tr>
+            <tr><td class="bold">Experiential Marketing</td><td class="mono">$52.8B</td><td class="mono">5–14%</td></tr>
+            <tr><td class="bold">Functional Beverages (US)</td><td class="mono">$50B</td><td class="mono">4.5–8%</td></tr>
+          </tbody>
+        </table>
+        <div class="rule full"></div>
+        <ul class="cl" style="gap:6px;">
+          <li style="font-size:11px;">Festival sponsorship CAGR: <span class="accent">9.95%</span> through 2031</li>
+          <li style="font-size:11px;"><span class="accent">800–1,200</span> US music festivals annually, drawing <span class="accent">32M+</span> attendees</li>
+          <li style="font-size:11px;"><span class="accent">51%</span> of companies growing experiential budgets 2024–2026</li>
+          <li style="font-size:11px;">Festivals fastest-growing live music segment: <span class="accent">9.08% CAGR</span></li>
+        </ul>
+        <div style="margin-top:5px; font-family:'Space Mono',monospace; font-size:8px; color:rgba(240,251,246,0.18); line-height:1.6;">Mordor Intelligence 2026 · Kentley Insights 2025 · Market Research 2025 · Glanbia 2024 · MusicFestivalWizard / Berklee MBJ</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S9 COMPETITIVE -->
+<div class="slide" id="s9">
+  <div class="bg-grid"></div><div class="bg-glow"></div>
+  <div class="sn">09 / COMPETITIVE LANDSCAPE</div>
+  <div class="wrap">
+    <div class="two-col" style="align-items:center;">
+      <div class="col center">
+        <div class="eyebrow">Where TR Wins</div>
+        <div class="headline">The Category Gap<br><span class="accent">Is the Entire<br>Category.</span></div>
+        <div class="rule"></div>
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <div class="comp"><div class="who">Liquid Death</div><div class="what">$333M revenue · punk water · Live Nation</div><div class="gap">Product only. No service.</div></div>
+          <div class="comp"><div class="who">Athletic Brewing</div><div class="what">$800M valuation · #1 NA beer in US</div><div class="gap">Retail-first. Not deployed.</div></div>
+          <div class="comp"><div class="who">Red Bull Activations</div><div class="what">World-class event marketing machine</div><div class="gap">Stimulant. Not wellness.</div></div>
+          <div class="comp"><div class="who">Hydration Vendors</div><div class="what">Generic water stations at events</div><div class="gap">No brand. No culture.</div></div>
+          <div class="comp"><div class="who">Experiential Agencies</div><div class="what">B2B brand activations, project-based</div><div class="gap">Hired guns. No owned IP.</div></div>
+          <div class="comp tr-row"><div class="who">✦ Thirst Responders</div><div class="what">Service + Infrastructure + Culture + Sponsorship</div><div class="gap">Owns the category.</div></div>
+        </div>
+      </div>
+      <div class="col center" style="gap:11px;">
+        <div class="card lit">
+          <div class="clabel">The White Space</div>
+          <p class="body" style="font-size:13px; margin-top:5px; line-height:1.8;"><span class="accent">①</span> Branded cultural identity<br><span class="accent">②</span> On-site event wellness infrastructure<br><span class="accent">③</span> Sponsorship / B2B revenue model<br><span class="accent">④</span> Sober-curious cultural positioning<br><br><strong style="color:var(--white)">No company combines all four. That's the category. And it's ours to claim.</strong></p>
+        </div>
+        <div class="g2" style="gap:8px;">
+          <div class="card" style="padding:11px 13px;"><div class="clabel" style="font-size:8px;">Partnership Upside</div><p class="body" style="font-size:11px;">Liquid Death & Athletic Brewing are natural sponsors — TR is the deployment vehicle they don't have.</p></div>
+          <div class="card" style="padding:11px 13px;"><div class="clabel" style="font-size:8px;">Exit Vectors</div><p class="body" style="font-size:11px;">Acquirable by beverage brands, Live Nation/AEG, wellness companies, or experiential agencies.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S10 SPONSORSHIP -->
+<div class="slide" id="s10">
+  <div class="bg-grid"></div><div class="bg-glow-l"></div>
+  <div class="sn">10 / SPONSORSHIP</div>
+  <div class="wrap">
+    <div class="eyebrow">Brand Activation Opportunities</div>
+    <div class="headline" style="margin-bottom:6px;">We're Not Just an Event Vendor.<br><span class="accent">We're a Sponsor Platform.</span></div>
+    <div class="rule"></div>
+    <p class="body" style="margin-bottom:16px; font-size:13px;">Brands don't want logo placement. They want <em>meaning</em> — an emotional moment their product is genuinely part of. The hydration station is the most authentic brand touchpoint in the building. We sell access to that authenticity.</p>
+    <div class="spg" style="margin-bottom:14px;">
+      <div class="sp"><div class="sc">💧 Beverage Brand Integration</div><div class="sb">NA beverage brands co-brand the hydration station. Product featured, sampled, consumed at a moment of genuine need. Highest possible trial-to-purchase conversion environment.</div></div>
+      <div class="sp"><div class="sc">🌿 Wellness Brand Activation</div><div class="sb">Recovery products, electrolyte brands, functional supplements. TR is their most relevant activation environment — guests are actively seeking this category.</div></div>
+      <div class="sp"><div class="sc">📲 Content & Digital Sponsorship</div><div class="sb">98% of attendees create content at experiential events. Every TR activation is a content engine. Sponsors receive branded placement in organic social content that spreads post-event.</div></div>
+      <div class="sp"><div class="sc">🏢 Corporate Wellness Partnership</div><div class="sb">HR departments book TR for company events. Sponsors receive employee engagement data, brand visibility, and measurable ROI metrics.</div></div>
+    </div>
+    <div class="card lit">
+      <div class="clabel">Sponsor Tier Structure (Illustrative)</div>
+      <div style="display:flex; gap:9px; flex-wrap:wrap; margin-top:9px;">
+        <div style="flex:1; min-width:130px; text-align:center; padding:11px; background:var(--dim); border-radius:6px;">
+          <div style="font-family:'Unbounded',sans-serif; font-size:16px; color:rgba(240,251,246,0.38);">Event</div>
+          <div style="font-family:'Unbounded',sans-serif; font-size:22px; color:var(--teal); margin-top:3px;">$1–5K</div>
+          <div style="font-size:10px; color:rgba(240,251,246,0.3); margin-top:3px;">Single activation · logo + sampling</div>
+        </div>
+        <div style="flex:1; min-width:130px; text-align:center; padding:11px; background:var(--dim); border-radius:6px; border:1px solid rgba(0,229,204,0.18);">
+          <div style="font-family:'Unbounded',sans-serif; font-size:16px; color:var(--teal);">Season</div>
+          <div style="font-family:'Unbounded',sans-serif; font-size:22px; color:var(--gold); margin-top:3px;">$8–25K</div>
+          <div style="font-size:10px; color:rgba(240,251,246,0.3); margin-top:3px;">Multi-event · co-branding · content rights</div>
+        </div>
+        <div style="flex:1; min-width:130px; text-align:center; padding:11px; background:var(--dim); border-radius:6px;">
+          <div style="font-family:'Unbounded',sans-serif; font-size:16px; color:rgba(240,251,246,0.38);">Anchor</div>
+          <div style="font-family:'Unbounded',sans-serif; font-size:22px; color:var(--teal); margin-top:3px;">$25K+</div>
+          <div style="font-size:10px; color:rgba(240,251,246,0.3); margin-top:3px;">Title sponsor · naming rights · year-round</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S11 PILOT -->
+<div class="slide" id="s11">
+  <div class="bg-grid"></div><div class="bg-glow"></div>
+  <div class="sn">11 / PILOT PLAN</div>
+  <div class="wrap">
+    <div class="two-col" style="align-items:flex-start;">
+      <div class="col">
+        <div class="eyebrow">Phase 1 — Proof of Concept</div>
+        <div class="headline" style="margin-bottom:11px;">Lean MVP.<br><span class="accent">Maximum Learning.</span></div>
+        <div class="rule"></div>
+        <table class="dt" style="font-size:11px;">
+          <thead><tr><th>Budget Category</th><th>Range</th></tr></thead>
+          <tbody>
+            <tr><td>Branded tent + setup</td><td class="mono">$400–$800</td></tr>
+            <tr><td>Beverage inventory</td><td class="mono">$300–$800</td></tr>
+            <tr><td>Equipment (coolers, tables, displays)</td><td class="mono">$200–$500</td></tr>
+            <tr><td>Signage + branded materials</td><td class="mono">$200–$500</td></tr>
+            <tr><td>Uniforms (2–3 staff)</td><td class="mono">$150–$300</td></tr>
+            <tr><td>Vendor fees (per event)</td><td class="mono">$150–$600</td></tr>
+            <tr><td>Permits + insurance</td><td class="mono">$150–$500</td></tr>
+            <tr><td>Transportation + logistics</td><td class="mono">$50–$150</td></tr>
+            <tr><td>Content creation</td><td class="mono">$0–$200</td></tr>
+            <tr class="hl"><td>Lean MVP Total</td><td class="mono accent">$1,800–$5,250</td></tr>
+            <tr class="hl"><td>Professional Pilot (3–5 events)</td><td class="mono accent">$9,400–$27,000</td></tr>
+          </tbody>
+        </table>
+        <p class="body" style="font-size:10px; color:rgba(240,251,246,0.28); margin-top:7px; font-style:italic;">Insurance Canopy 2025 · Festival Vendor Research 2025</p>
+      </div>
+      <div class="col">
+        <div class="eyebrow">Revenue Projections</div>
+        <div class="headline" style="font-size:clamp(18px,2.5vw,30px); margin-bottom:11px;">Conservative. <span class="accent">Defensible.</span></div>
+        <div style="margin-bottom:14px;">
+          <div class="prow"><div class="pyr">YR 1</div><div class="ptrack"><div class="pbar" style="width:7%;">$25K</div></div><div class="pnote">8–15 events · 1st sponsor</div></div>
+          <div class="prow"><div class="pyr">YR 2</div><div class="ptrack"><div class="pbar" style="width:33%;">$125K</div></div><div class="pnote">25–40 events · 3 sponsors</div></div>
+          <div class="prow"><div class="pyr">YR 3</div><div class="ptrack"><div class="pbar" style="width:68%;">$355K</div></div><div class="pnote">50+ events · anchor · multi-state</div></div>
+          <div class="prow"><div class="pyr">YR 4–5</div><div class="ptrack"><div class="pbar" style="width:100%;">$1M+</div></div><div class="pnote">Licensing · franchise · exit zone</div></div>
+        </div>
+        <div class="card lit"><div class="clabel">Why These Numbers Hold Up</div><p class="body" style="font-size:12px; margin-top:4px;">Built bottom-up from unit economics. Year 1: 15 organizers pay $750 each. Year 2: 3 sponsors average $8,000 each. Every number traces back to a real transaction type.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S12 GROWTH VISION -->
+<div class="slide" id="s12">
+  <div class="bg-grid"></div><div class="bg-glow-l"></div>
+  <div class="sn">12 / GROWTH VISION</div>
+  <div class="wrap">
+    <div class="eyebrow">Seasonal Strategy + Scale</div>
+    <div class="headline" style="margin-bottom:6px;">Built for <span class="accent">All Four Seasons.</span> Scales Through Every Vertical.</div>
+    <div class="rule"></div>
+    <div class="sg" style="margin-bottom:13px;">
+      <div class="sgc" style="border-color:var(--teal);"><div class="clabel">🌞 Spring/Summer · Peak</div><ul class="cl" style="gap:5px; margin-top:7px;"><li style="font-size:11px;">Outdoor festivals & concerts</li><li style="font-size:11px;">Street fairs & Pride events</li><li style="font-size:11px;">University end-of-year</li><li style="font-size:11px;">Max content production season</li></ul></div>
+      <div class="sgc" style="border-color:rgba(0,229,204,0.48);"><div class="clabel">🍂 Fall · Bridge</div><ul class="cl" style="gap:5px; margin-top:7px;"><li style="font-size:11px;">College homecomings & football</li><li style="font-size:11px;">Fall food & drink festivals</li><li style="font-size:11px;">Corporate retreats</li><li style="font-size:11px;">Sponsor pitch season</li></ul></div>
+      <div class="sgc" style="border-color:rgba(0,229,204,0.28);"><div class="clabel">❄️ Winter · Sustain</div><ul class="cl" style="gap:5px; margin-top:7px;"><li style="font-size:11px;">Indoor nightlife activations</li><li style="font-size:11px;">Corporate wellness days</li><li style="font-size:11px;"><span class="accent">Dry January campaign</span></li><li style="font-size:11px;">Holiday recovery kit sales</li></ul></div>
+      <div class="sgc" style="border-color:var(--gold);"><div class="clabel">♾️ Year-Round</div><ul class="cl" style="gap:5px; margin-top:7px;"><li style="font-size:11px;">E-commerce recovery kits</li><li style="font-size:11px;">University semester retainers</li><li style="font-size:11px;">Brand sponsorship contracts</li><li style="font-size:11px;">Content & community growth</li></ul></div>
+    </div>
+    <div class="tl">
+      <div class="tli"><div class="tll"><div class="tld"></div><div class="tls"></div></div><div class="tlc"><div class="tlt">Phase 1 — Prove It (Year 1)</div><div class="tlb">8–15 regional activations across the Mid-Atlantic & Upper South corridor — KY, OH, TN, MD, DC. Lock first sponsor. Build content library. Document every SOP.</div></div></div>
+      <div class="tli"><div class="tll"><div class="tld"></div><div class="tls"></div></div><div class="tlc"><div class="tlt">Phase 2 — Scale It (Year 2)</div><div class="tlb">20–40 events. Corporate wellness vertical live. University program launched. 2–3 brand sponsors. E-commerce soft launch.</div></div></div>
+      <div class="tli"><div class="tll"><div class="tld"></div></div><div class="tlc"><div class="tlt">Phase 3 — Own It (Year 3+)</div><div class="tlb">50+ events. Anchor sponsor. Multi-state. White-label model. Acquisition conversations begin.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S13 WHY THIS WINS -->
+<div class="slide" id="s13">
+  <div class="bg-grid"></div><div class="bg-glow-c"></div>
+  <div class="sn">13 / WHY THIS WINS</div>
+  <div class="wrap center">
+    <div style="max-width:800px; margin:0 auto;">
+      <div class="eyebrow" style="text-align:center;">The Full Case</div>
+      <div class="headline" style="text-align:center; margin-bottom:6px;">Five Reasons This<br><span class="accent">Becomes a Real Brand.</span></div>
+      <div class="rule" style="margin:14px auto;"></div>
+      <div class="g2" style="margin-bottom:12px;">
+        <div class="card lit"><div class="clabel">① Cultural Timing</div><p class="body" style="font-size:12px; margin-top:5px;">The sober-curious movement is mainstream. Gen Z is the dominant live events demographic and they're cutting alcohol. This cultural window won't reopen. We're building into it now.</p></div>
+        <div class="card"><div class="clabel">② First-Mover Positioning</div><p class="body" style="font-size:12px; margin-top:5px;">No company has claimed "branded wellness infrastructure for events" as a category. The first brand to own this positioning wins the category — and the category is worth billions.</p></div>
+        <div class="card"><div class="clabel">③ Asset-Light Scalability</div><p class="body" style="font-size:12px; margin-top:5px;">No owned venues. No medical licensing. No heavy capital requirements. TR scales with people, brand, and partnerships — not with real estate or equipment debt.</p></div>
+        <div class="card"><div class="clabel">④ Authentic Community Moat</div><p class="body" style="font-size:12px; margin-top:5px;">Built by a nightlife veteran, community organizer, and cultural creative. The trust B.D. Harrison carries into every room is 15 years deep. A corporate competitor cannot purchase it.</p></div>
+      </div>
+      <div class="card lit" style="padding:18px 22px;">
+        <div class="clabel" style="text-align:center; margin-bottom:8px;">⑤ The Liquid Death Precedent</div>
+        <p class="body" style="font-size:14px; text-align:center; font-style:italic; line-height:1.75;">"Liquid Death turned water into a <strong style="color:var(--white)">$1.4B brand</strong> by giving it a personality.<br>We're not selling a product — we're deploying an <span class="accent">experience</span>.<br>The market is there. The timing is right. Nobody has built this yet."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S14 THE ASK -->
+<!-- FIX: added min-width:0 and overflow:hidden to right col to prevent list overflow;
+     word-break:break-word already applied globally to .cl li -->
+<div class="slide" id="s14">
+  <div class="bg-grid"></div><div class="bg-glow"></div>
+  <div class="sn">14 / THE ASK</div>
+  <div class="wrap">
+    <div class="two-col" style="align-items:flex-start;">
+      <div class="col">
+        <div class="eyebrow">Raising Now</div>
+        <div style="font-family:'Unbounded',sans-serif; font-size:clamp(50px,9vw,96px); font-weight:900; color:var(--teal); line-height:0.88; letter-spacing:-0.02em;">$75,000</div>
+        <p class="body" style="font-size:14px; margin-top:11px; margin-bottom:18px; color:rgba(240,251,246,0.58);">Pre-seed / friends-and-family round to fund the first full deployment season and lock initial sponsor partnerships.</p>
+        <div class="rule"></div>
+        <table class="dt" style="font-size:11px; margin-top:9px;">
+          <thead><tr><th>Use of Funds</th><th>Allocation</th></tr></thead>
+          <tbody>
+            <tr><td>Equipment + branded infrastructure</td><td class="mono">$20,000</td></tr>
+            <tr><td>Inventory + beverage product</td><td class="mono">$12,000</td></tr>
+            <tr><td>Staffing (seasonal crew)</td><td class="mono">$15,000</td></tr>
+            <tr><td>Insurance, permits, legal (LLC)</td><td class="mono">$5,000</td></tr>
+            <tr><td>Content creation + marketing</td><td class="mono">$8,000</td></tr>
+            <tr><td>E-commerce setup + recovery kits</td><td class="mono">$7,000</td></tr>
+            <tr><td>Sponsor materials + pitch deck</td><td class="mono">$5,000</td></tr>
+            <tr><td>Operational contingency</td><td class="mono">$3,000</td></tr>
+            <tr class="hl"><td>TOTAL</td><td class="mono accent">$75,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col" style="gap:13px; overflow:hidden;">
+        <div class="clabel">What This Capital Unlocks</div>
+        <ul class="cl" style="gap:9px;">
+          <li><strong style="color:var(--white); white-space:nowrap;">15+ activations</strong> across the Mid-Atlantic &amp; Upper South corridor — KY, OH, TN, MD &amp; DC — in Year 1</li>
+          <li><strong style="color:var(--white);">First sponsor deal</strong> — with professional materials, activation proof, and post-event data</li>
+          <li><strong style="color:var(--white);">E-commerce launch</strong> — recovery kits and branded merch generating passive income</li>
+          <li><strong style="color:var(--white);">Sponsor-ready content library</strong> — photo/video assets that sell the next deal before you ask</li>
+          <li><strong style="color:var(--white);">Documented SOPs</strong> — repeatable systems that prove the model scales beyond the founder</li>
+          <li><strong style="color:var(--white);">Series A readiness</strong> — Year 1 data, traction, and a proven concept that de-risks the next raise</li>
+        </ul>
+        <div class="rule full"></div>
+        <div class="card lit" style="margin-top:auto;">
+          <div class="clabel" style="margin-bottom:8px;">Also Seeking</div>
+          <ul class="cl" style="gap:9px;">
+            <li style="font-size:12px;">Strategic introductions to festival producers and event promoters</li>
+            <li style="font-size:12px;">Connections to beverage brands seeking event activation infrastructure</li>
+            <li style="font-size:12px;">Advisors with hospitality, CPG, or experiential marketing experience</li>
+          </ul>
+          <div class="rule full" style="margin-top:14px; margin-bottom:10px;"></div>
+          <p style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(240,251,246,0.22); text-align:center; letter-spacing:0.1em;">B.D. HARRISON · THIRST RESPONDERS · CONFIDENTIAL 2026</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S15 CLOSING VISION -->
+<div class="slide" id="s15">
+  <div class="bg-grid"></div><div class="bg-glow-c"></div><div class="bg-noise"></div>
+  <div class="sn">15 / VISION</div>
+  <div class="wrap center">
+    <div style="max-width:700px; margin:0 auto; text-align:center;">
+      <div class="eyebrow">Five Years From Now</div>
+      <div style="font-family:'Unbounded',sans-serif; font-size:clamp(26px,5vw,52px); font-weight:900; line-height:1.0; margin-bottom:18px;">Thirst Responders is<br><span class="accent">the name you see</span><br>at every major festival.</div>
+      <div class="rule" style="margin:18px auto;"></div>
+      <p class="body" style="font-size:14px; margin-bottom:26px; font-style:italic; color:rgba(240,251,246,0.55);">The brand event organizers call first. The company beverage conglomerates acquire to own the wellness activation market they missed building themselves. The movement that made recovery the coolest thing in the room.</p>
+      <div class="g2" style="gap:9px; text-align:left; margin-bottom:22px;">
+        <div class="card"><div class="clabel">Expansion</div><ul class="cl" style="gap:6px; margin-top:7px;"><li style="font-size:11px;">Multi-city → national footprint</li><li style="font-size:11px;">Touring partnerships: Live Nation, AEG tier</li><li style="font-size:11px;">Licensing / franchise for regional operators</li></ul></div>
+        <div class="card"><div class="clabel">Exit Landscape</div><ul class="cl" style="gap:6px; margin-top:7px;"><li style="font-size:11px;">Beverage companies (Liquid Death, AB InBev)</li><li style="font-size:11px;">Live events (Live Nation, AEG)</li><li style="font-size:11px;">Wellness brands entering event culture</li></ul></div>
+      </div>
+      <div style="font-family:'Unbounded',sans-serif; font-size:clamp(20px,4vw,36px); font-weight:900; color:var(--teal); letter-spacing:0.07em; margin-bottom:11px;">QUENCH THE ALARM.</div>
+      <p style="font-family:'Space Mono',monospace; font-size:9px; color:rgba(240,251,246,0.18); letter-spacing:0.1em;">B.D. HARRISON · THIRST RESPONDERS · CONFIDENTIAL 2026</p>
+    </div>
+  </div>
+</div>
+
+<!-- S16 CITATIONS -->
+<div class="slide" id="s16">
+  <div class="bg-grid"></div>
+  <div class="sn">16 / CITATIONS</div>
+  <div class="wrap">
+    <div class="eyebrow">Research Bibliography</div>
+    <div class="headline" style="font-size:clamp(18px,2.5vw,30px); margin-bottom:5px;">Sources & <span class="accent">References</span></div>
+    <div class="rule"></div>
+    <p class="body" style="font-size:11px; color:rgba(240,251,246,0.38); margin-bottom:14px;">All statistics sourced from third-party research firms, published industry reports, and consumer surveys. Financial projections are estimates only and not guarantees of future performance.</p>
+    <div class="g2" style="gap:14px;">
+      <div>
+        <div class="clabel" style="margin-bottom:7px;">Consumer Behavior & Sober-Curious Trends</div>
+        <table class="dt" style="font-size:10px;">
+          <thead><tr><th>Stat</th><th>Source</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td>49% cutting alcohol; 44% increase since 2023</td><td>NCSolutions Consumer Sentiment Survey</td><td class="mono">Jan 2025</td></tr>
+            <tr><td>65% Gen Z drinking less; 39% fully dry</td><td>NCSolutions Consumer Sentiment Survey</td><td class="mono">Jan 2025</td></tr>
+            <tr><td>Adults under 35: 62% drink (down from 72%)</td><td>Gallup / NA Beer Club</td><td class="mono">2023–24</td></tr>
+            <tr><td>+22% YoY NA beer purchase growth</td><td>NCSolutions Purchase Panel Data</td><td class="mono">2024–25</td></tr>
+            <tr><td>75% likely to try sober-marketed products</td><td>NCSolutions Consumer Survey</td><td class="mono">2025</td></tr>
+            <tr><td>Dry January: 30% of Americans, +36% YoY</td><td>NCSolutions</td><td class="mono">Jan 2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="clabel" style="margin-bottom:7px;">Live Events & Festival Markets</div>
+        <table class="dt" style="font-size:10px;">
+          <thead><tr><th>Stat</th><th>Source</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td>US Live Music: $18.5B (2025), CAGR 6.45%</td><td>Mordor Intelligence</td><td class="mono">Jan 2026</td></tr>
+            <tr><td>Festival segment CAGR: 9.08% through 2031</td><td>Mordor Intelligence</td><td class="mono">Jan 2026</td></tr>
+            <tr><td>Festival sponsorship CAGR: 9.95%</td><td>Mordor Intelligence</td><td class="mono">Jan 2026</td></tr>
+            <tr><td>US Bars & Nightclubs: $40.3B, ~50,750 venues</td><td>Kentley Insights</td><td class="mono">2025</td></tr>
+            <tr><td>Live entertainment global: $465.9B (2024)</td><td>Custom Market Insights</td><td class="mono">2025</td></tr>
+            <tr><td>800–1,200 US music festivals annually; 32M+ attendees</td><td>MusicFestivalWizard / Berklee MBJ</td><td class="mono">2024–25</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="clabel" style="margin-bottom:7px;">Experiential Marketing</div>
+        <table class="dt" style="font-size:10px;">
+          <thead><tr><th>Stat</th><th>Source</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td>US experiential spend: $52.8B (45.5% of global)</td><td>Kande / Market Research Aggregate</td><td class="mono">2025</td></tr>
+            <tr><td>38% of total marketing spend is experiential</td><td>Business Research Insights</td><td class="mono">2026</td></tr>
+            <tr><td>85% more likely to buy after live brand event</td><td>The Drum / Financesonline</td><td class="mono">2024</td></tr>
+            <tr><td>98% of consumers create content at exp. events</td><td>The Drum / AnyRoad</td><td class="mono">2024</td></tr>
+            <tr><td>51% of companies growing experiential budgets</td><td>G2 Experiential Marketing Stats</td><td class="mono">2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="clabel" style="margin-bottom:7px;">Beverage, Wellness & Competitor Data</div>
+        <table class="dt" style="font-size:10px;">
+          <thead><tr><th>Stat / Company</th><th>Source</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td>US functional bev: $50B → $62B by 2027</td><td>Glanbia Nutritionals</td><td class="mono">2024</td></tr>
+            <tr><td>Global wellness beverages: $189.7B → $594.5B</td><td>Market.us</td><td class="mono">2025</td></tr>
+            <tr><td>Liquid Death: $333M revenue, $1.4B valuation</td><td>Fueler.io / Forbes / CNBC</td><td class="mono">2024–25</td></tr>
+            <tr><td>Athletic Brewing: $800M valuation, $90M+ revenue</td><td>CNBC / Fortune / Inc.</td><td class="mono">Jul 2024</td></tr>
+            <tr><td>Event vendor costs (insurance, permits, staffing)</td><td>Insurance Canopy / Industry Research</td><td class="mono">2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="rule full" style="margin-top:18px;"></div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:11px;">
+      <p class="body" style="font-size:10px; color:rgba(240,251,246,0.22); max-width:560px; line-height:1.6;"><strong style="color:rgba(240,251,246,0.38);">Disclaimer:</strong> Confidential. Market figures are third-party estimates. Financial projections are illustrative only. Thirst Responders LLC makes no representations as to the accuracy or completeness of third-party data.</p>
+      <div style="text-align:right;"><div style="font-family:'Unbounded',sans-serif; font-size:16px; color:var(--teal); letter-spacing:0.05em;">THIRST RESPONDERS</div><div style="font-family:'Space Mono',monospace; font-size:8px; color:rgba(240,251,246,0.18); margin-top:2px; letter-spacing:0.1em;">CONFIDENTIAL · MAY 2026</div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<div id="nav">
+  <button id="prev" onclick="go(-1)" disabled>← Prev</button>
+  <div class="dots" id="dots"></div>
+  <span id="counter">1 / 16</span>
+  <button id="next" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0, navTimer;
+const dotWrap = document.getElementById('dots');
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot'+(i===0?' active':'');
+  d.onclick = () => goTo(i);
+  dotWrap.appendChild(d);
+});
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  slides[cur].scrollTop = 0;
+  dotWrap.children[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(total-1, n));
+  slides[cur].classList.add('active');
+  dotWrap.children[cur].classList.add('active');
+  document.getElementById('counter').textContent = `${cur+1} / ${total}`;
+  document.getElementById('prev').disabled = cur===0;
+  document.getElementById('next').disabled = cur===total-1;
+  showNav();
+}
+function go(dir) { goTo(cur+dir); }
+const nav = document.getElementById('nav');
+function showNav() {
+  nav.classList.remove('hidden');
+  clearTimeout(navTimer);
+  navTimer = setTimeout(() => nav.classList.add('hidden'), 3200);
+}
+document.addEventListener('mousemove', showNav);
+document.addEventListener('touchstart', showNav);
+showNav();
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='ArrowDown') go(1);
+  if (e.key==='ArrowLeft'||e.key==='ArrowUp') go(-1);
+});
+let tx=0;
+document.addEventListener('touchstart', e => tx=e.touches[0].clientX);
+document.addEventListener('touchend', e => { const dx=tx-e.changedTouches[0].clientX; if(Math.abs(dx)>50) go(dx>0?1:-1); });
+</script>
+</body>
+</html>
