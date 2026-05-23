@@ -231,12 +231,13 @@ nav.scrolled {
 }
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(80px, 14vw, 180px);
-  line-height: 0.88;
+  font-size: clamp(70px, 11vw, 150px);
+  line-height: 1.05;
   letter-spacing: 0.01em;
   color: var(--white);
   position: relative;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
 }
 .hero-title .line-cyan {
   display: block;
@@ -563,11 +564,12 @@ section {
 }
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 .stat-block {
-  padding: 52px 40px;
+  padding: 40px 24px;
   border-right: 1px solid rgba(0,229,204,0.08);
+  border-bottom: 1px solid rgba(0,229,204,0.08);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -624,8 +626,8 @@ section {
 .deploy-header .rule { margin: 18px auto; }
 .deploy-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 .deploy-card {
   background: var(--dim);
@@ -659,7 +661,7 @@ section {
   background: rgba(255,77,46,0.06);
   box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 36px rgba(255,77,46,0.08);
 }
-.deploy-card:nth-child(2)::before {
+.deploy-card:nth-child(2):::before {
   background: linear-gradient(90deg, transparent, var(--ember), transparent);
 }
 .deploy-card:nth-child(3) { border-color: rgba(204,255,0,0.1); }
@@ -668,7 +670,7 @@ section {
   background: rgba(204,255,0,0.04);
   box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 36px rgba(204,255,0,0.06);
 }
-.deploy-card:nth-child(3)::before {
+.deploy-card:nth-child(3):::before {
   background: linear-gradient(90deg, transparent, var(--volt), transparent);
 }
 .deploy-card:nth-child(4) { border-color: rgba(244,196,48,0.1); }
@@ -677,7 +679,7 @@ section {
   background: rgba(244,196,48,0.04);
   box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 36px rgba(244,196,48,0.07);
 }
-.deploy-card:nth-child(4)::before {
+.deploy-card:nth-child(4):::before {
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 .card-icon {
@@ -718,8 +720,9 @@ section {
 .ops-header { margin-bottom: 64px; }
 .pipeline {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  gap: 0;
+  gap: 32px 0;
   position: relative;
 }
 .pipeline::before {
@@ -732,7 +735,7 @@ section {
   background: linear-gradient(90deg, transparent, rgba(0,229,204,0.25) 15%, rgba(0,229,204,0.25) 85%, transparent);
 }
 .pipeline-step {
-  flex: 1;
+  flex: 1 1 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -776,8 +779,8 @@ section {
 }
 .ops-metrics {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
   margin-top: 64px;
 }
 .metric-card {
@@ -881,7 +884,7 @@ section {
 .sponsor-header .eyebrow::before { display: none; }
 .sponsor-tiers {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   margin-bottom: 56px;
 }
@@ -1053,8 +1056,7 @@ section {
 }
 .founder-corner {
   position: absolute;
-  bottom: 24px; left: 24px;
-  right: 24px;
+  bottom: 24px; left: 24px; right: 24px;
   background: rgba(6,12,10,0.8);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0,229,204,0.14);
@@ -1159,8 +1161,8 @@ section {
 .products-header { margin-bottom: 64px; }
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
 }
 .product-card {
   background: var(--dim);
@@ -1191,8 +1193,7 @@ section {
 .pv-dark { background: var(--slate); }
 .product-icon {
   font-size: 56px;
-  position: relative;
-  z-index: 1;
+  position: relative; z-index: 1;
   filter: drop-shadow(0 0 20px rgba(0,229,204,0.3));
 }
 .product-glow-dot {
@@ -1203,9 +1204,7 @@ section {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
-.product-info {
-  padding: 22px 24px;
-}
+.product-info { padding: 22px 24px; }
 .product-tier {
   font-family: var(--font-mono);
   font-size: 8px;
@@ -1244,393 +1243,241 @@ section {
   gap: 16px;
   padding: 14px 20px;
   background: var(--dim);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 8px;
-  transition: all 0.25s;
+  border: 1px solid rgba(0,229,204,0.06);
+  border-radius: 6px;
 }
-.comp-row:hover { background: rgba(0,229,204,0.04); }
-.comp-row.tr-row {
-  background: rgba(0,229,204,0.06);
-  border-color: rgba(0,229,204,0.25);
-  box-shadow: 0 0 24px rgba(0,229,204,0.06);
+.comp-row.table-th {
+  background: transparent;
+  border-color: transparent;
+  padding-bottom: 4px;
 }
-.comp-who {
-  font-weight: 600;
-  font-size: 14px;
-  min-width: 180px;
-  color: var(--white);
-}
-.comp-row.tr-row .comp-who { color: var(--cyan); font-size: 16px; }
-.comp-what {
-  flex: 1;
-  font-size: 12px;
-  color: rgba(240,251,246,0.45);
-}
-.comp-gap {
+.comp-row.table-th .comp-cell {
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--ember);
-  min-width: 200px;
-  text-align: right;
-}
-.comp-row.tr-row .comp-gap { color: var(--cyan); font-weight: 700; }
-
-/* ─── QUOTE TICKER ─── */
-#ticker {
-  padding: 80px 0;
-  background: var(--ink);
-  overflow: hidden;
-}
-.ticker-track {
-  display: flex;
-  animation: ticker-scroll 32s linear infinite;
-  width: max-content;
-  gap: 0;
-}
-@keyframes ticker-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.ticker-item {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 0 40px;
-  white-space: nowrap;
-}
-.ticker-text {
-  font-family: var(--font-display);
-  font-size: 22px;
-  letter-spacing: 0.05em;
+  font-size: 9px;
+  letter-spacing: 0.12em;
   color: var(--white-muted);
+  text-transform: uppercase;
 }
-.ticker-text span { color: var(--cyan); }
-.ticker-sep {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--ember);
-  flex-shrink: 0;
-}
+.comp-cell { font-size: 13px; color: var(--white-soft); }
+.cell-feature { flex: 1.5; font-weight: 500; color: var(--white); }
+.comp-row.table-th .cell-feature { font-family: var(--font-mono); font-size: 9px; }
+.cell-tr { flex: 1.2; color: var(--cyan); font-weight: 600; }
+.cell-other { flex: 1; color: var(--white-muted); }
+.icon-chk { color: var(--cyan); margin-right: 6px; }
+.icon-x { color: rgba(255,77,46,0.4); margin-right: 6px; }
 
-/* ─── CTA SECTION ─── */
-#cta {
+/* ─── CONTACT / DISPATCH ─── */
+#contact {
   padding: 140px 0;
   background: var(--night);
-  position: relative;
+  border-top: 1px solid rgba(0,229,204,0.08);
 }
-.cta-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,229,204,0.06) 0%, transparent 70%);
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
 }
-.cta-content {
-  text-align: center;
-  max-width: 780px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-.cta-pre {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  color: var(--ember);
-  margin-bottom: 12px;
-  animation: blink-text 1.8s step-end infinite;
-}
-.cta-title {
-  font-family: var(--font-display);
-  font-size: clamp(56px, 9vw, 110px);
-  line-height: 0.88;
-  color: var(--white);
-  margin-bottom: 16px;
-  letter-spacing: 0.02em;
-}
-.cta-title .accent { color: var(--cyan); }
-.cta-sub {
-  font-size: 16px;
-  color: var(--white-soft);
-  max-width: 540px;
-  margin: 0 auto 48px;
-  line-height: 1.75;
-  font-weight: 300;
-}
-.cta-form {
+.contact-info .body-text { margin-bottom: 36px; }
+.comms-channels {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 560px;
-  margin: 0 auto 32px;
+  gap: 20px;
 }
-.cta-row { display: flex; gap: 14px; }
-.cta-input {
-  flex: 1;
-  background: var(--dim);
-  border: 1px solid rgba(0,229,204,0.15);
+.channel-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 22px;
+  background: var(--ink);
+  border: 1px solid rgba(0,229,204,0.08);
+  border-radius: 8px;
+}
+.channel-icon {
+  width: 44px; height: 44px;
   border-radius: 6px;
-  padding: 14px 18px;
+  background: rgba(0,229,204,0.05);
+  border: 1px solid rgba(0,229,204,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--cyan);
+}
+.channel-details h4 {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-muted);
+  margin-bottom: 2px;
+}
+.channel-details p {
+  font-size: 15px;
+  color: var(--white);
+  font-weight: 500;
+}
+.dispatch-form {
+  background: var(--dim);
+  border: 1px solid rgba(0,229,204,0.12);
+  border-radius: 16px;
+  padding: 40px;
+  position: relative;
+}
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-muted);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--ink);
+  border: 1px solid rgba(0,229,204,0.15);
+  border-radius: 4px;
+  padding: 12px 16px;
   color: var(--white);
   font-family: var(--font-body);
   font-size: 14px;
-  outline: none;
   transition: all 0.25s;
 }
-.cta-input::placeholder { color: var(--white-muted); }
-.cta-input:focus {
-  border-color: rgba(0,229,204,0.45);
-  background: rgba(0,229,204,0.04);
-  box-shadow: 0 0 0 3px rgba(0,229,204,0.08);
-}
-.cta-select {
-  flex: 1;
-  background: var(--dim);
-  border: 1px solid rgba(0,229,204,0.15);
-  border-radius: 6px;
-  padding: 14px 18px;
-  color: var(--white-soft);
-  font-family: var(--font-body);
-  font-size: 14px;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
-  appearance: none;
-  cursor: pointer;
-  transition: all 0.25s;
+  border-color: var(--cyan);
+  box-shadow: 0 0 16px var(--cyan-glow);
+  background: var(--slate);
 }
-.cta-select:focus {
-  border-color: rgba(0,229,204,0.45);
-}
-.cta-select option { background: var(--dim); color: var(--white); }
-.cta-btn {
-  background: var(--cyan);
-  color: var(--night);
-  border: none;
-  border-radius: 6px;
-  padding: 16px 20px;
+.btn-submit {
+  width: 100%;
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: var(--night);
+  background: var(--cyan);
+  border: none;
+  padding: 16px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.25s;
   font-weight: 700;
-  width: 100%;
+  margin-top: 12px;
+  transition: all 0.25s;
 }
-.cta-btn:hover {
+.btn-submit:hover {
   background: var(--volt);
-  box-shadow: 0 0 36px var(--volt-glow), 0 8px 24px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
+  box-shadow: 0 0 32px var(--volt-glow);
 }
-.cta-note {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--white-muted);
-  letter-spacing: 0.08em;
-}
-.cta-options {
-  display: flex;
-  gap: 28px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 48px;
-}
-.cta-option-item {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  color: var(--white-muted);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-transform: uppercase;
-}
-.cta-option-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); }
 
 /* ─── FOOTER ─── */
 footer {
-  background: var(--ink);
-  border-top: 1px solid rgba(0,229,204,0.1);
-  padding: 80px 0 40px;
+  background: var(--night);
+  padding: 64px 0 40px;
+  border-top: 1px solid rgba(0,229,204,0.06);
 }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 60px;
-  margin-bottom: 60px;
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
 }
-.footer-brand {}
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--white-muted);
+  text-transform: uppercase;
+}
 .footer-logo {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 20px;
   letter-spacing: 0.1em;
-  color: var(--white);
-  margin-bottom: 12px;
-  display: block;
-}
-.footer-tagline {
-  font-family: var(--font-display);
-  font-size: 14px;
-  letter-spacing: 0.2em;
-  color: var(--cyan);
-  margin-bottom: 16px;
-}
-.footer-desc {
-  font-size: 13px;
-  color: var(--white-muted);
-  line-height: 1.7;
-  max-width: 280px;
-}
-.footer-dispatch {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  color: var(--ember);
-  margin-top: 16px;
-  animation: blink-text 1.4s step-end infinite;
-}
-.footer-col-title {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--white-muted);
-  margin-bottom: 18px;
-}
-.footer-col ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.footer-col ul a {
-  font-size: 13px;
-  color: rgba(240,251,246,0.5);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-col ul a:hover { color: var(--cyan); }
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 28px;
-  border-top: 1px solid rgba(0,229,204,0.06);
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.footer-legal {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: rgba(240,251,246,0.2);
-}
-.footer-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: rgba(0,229,204,0.4);
-}
-.status-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--cyan);
-  animation: pulse-dot 2s infinite;
+  color: rgba(240,251,246,0.25);
 }
 
-/* ─── REVEAL ANIMATIONS ─── */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-}
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
-
-/* ─── GLOW LINE ANIMATION ─── */
-@keyframes glow-line {
-  0%, 100% { box-shadow: 0 0 10px rgba(0,229,204,0.2); }
-  50% { box-shadow: 0 0 30px rgba(0,229,204,0.5); }
-}
-
-/* ─── CURSOR GLOW ─── */
-.cursor-glow {
-  position: fixed;
-  width: 320px; height: 320px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(circle, rgba(0,229,204,0.04) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  transition: left 0.1s ease, top 0.1s ease;
-  mix-blend-mode: screen;
-}
-
-/* ─── MOBILE ─── */
-@media (max-width: 900px) {
-  nav { padding: 14px 24px; }
-  nav.scrolled { padding: 10px 24px; }
-  .nav-links { display: none; }
-  .hero-content { padding: 120px 28px 60px; }
-  .hero-badge { display: none; }
-  .hero-stats { gap: 28px; }
-  .section-inner { padding: 0 28px; }
-  .mission-grid,
-  .market-inner,
-  .founder-layout { grid-template-columns: 1fr; gap: 40px; }
-  .deploy-cards { grid-template-columns: 1fr 1fr; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .ops-metrics { grid-template-columns: 1fr 1fr; }
-  .pipeline { flex-direction: column; gap: 28px; }
-  .pipeline::before { display: none; }
-  .pipeline-step { flex-direction: row; text-align: left; gap: 20px; }
-  .step-num { width: 60px; height: 60px; flex-shrink: 0; margin-bottom: 0; font-size: 22px; }
-  .sponsor-tiers { grid-template-columns: 1fr; }
-  .products-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .comp-row { flex-wrap: wrap; gap: 8px; }
-  .comp-gap { min-width: auto; text-align: left; }
-  .cta-row { flex-direction: column; }
-  .sponsor-value { grid-template-columns: 1fr; }
-  .market-stat-row { flex-wrap: wrap; }
-}
-@media (max-width: 540px) {
-  .deploy-cards { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .hero-title { font-size: clamp(52px, 18vw, 100px); }
-  #mission, #deploy, #ops, #sponsor, #founder, #products, #cta { padding: 80px 0; }
+/* ─── RESPONSIVE LAYOUT CLEANUP ─── */
+@media (max-width: 992px) {
+  nav {
+    padding: 14px 24px;
+  }
+  .nav-links, .nav-cta {
+    display: none;
+  }
+  .hero-content {
+    padding: 12px 24px 60px;
+  }
+  .hero-badge {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    align-items: flex-start;
+    margin-top: 32px;
+  }
+  .section-inner {
+    padding: 0 24px;
+  }
+  .mission-grid, 
+  .market-inner, 
+  .founder-layout, 
+  .sponsor-value,
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px;
+  }
+  .pipeline::before {
+    display: none;
+  }
+  .pipeline-step {
+    flex: 1 1 100%;
+    margin-bottom: 24px;
+  }
+  .comp-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .comp-cell {
+    flex: 1 1 100%;
+  }
+  .cell-feature {
+    border-bottom: 1px solid rgba(0,229,204,0.1);
+    padding-bottom: 4px;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="cursor-glow" id="cursorGlow"></div>
-
-<!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="dot"></div>
-    THIRST RESPONDERS
+    THIRST RESPONDERS <span class="dot"></span>
   </a>
   <ul class="nav-links">
     <li><a href="#mission">Mission</a></li>
-    <li><a href="#deploy">Deploy</a></li>
-    <li><a href="#sponsor">Sponsors</a></li>
+    <li><a href="#deploy">Deployments</a></li>
+    <li><a href="#ops">Pipeline</a></li>
+    <li><a href="#sponsor">Sponsorship</a></li>
     <li><a href="#founder">Founder</a></li>
-    <li><a href="#products">Products</a></li>
+    <li><a href="#products">Offerings</a></li>
+    <li><a href="#contact">Dispatch</a></li>
   </ul>
-  <a href="#cta" class="nav-cta">Dispatch Request</a>
+  <a href="#contact" class="nav-cta">Request Dispatch</a>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-bg">
     <div class="hero-grid"></div>
@@ -1638,732 +1485,586 @@ footer {
     <div class="hero-glow-2"></div>
     <div class="hero-scan"></div>
   </div>
-
   <div class="hero-content">
-    <div class="hero-eyebrow">Rapid Response Hydration · On Scene</div>
     <div class="hero-dispatch" id="dispatchText">● UNIT 01 — DEPLOYED. QUENCH THE ALARM.</div>
-
+    <div class="hero-eyebrow">Mobile Hospitality &amp; Experiential Activation</div>
     <h1 class="hero-title">
-      <span class="line-cyan">THIRST</span>
-      <span style="display:block; color: var(--white);">RE</span>
-      <span style="display:flex; align-items:baseline; gap:0.05em;">
-        <span class="line-ember">SPOND</span><span style="color:var(--white);">ERS</span>
-      </span>
+      <span class="line-cyan">QUENCH THE</span>
+      <span class="line-ember">ALARM.</span>
     </h1>
-
-    <div class="hero-tagline">QUENCH THE ALARM.</div>
-
-    <p class="hero-sub">Experiential wellness infrastructure for events, festivals, and nightlife. We don't just show up with water — we show up as the best moment at the event.</p>
-
+    <p class="hero-tagline">THIRST RESPONDERS</p>
+    <p class="hero-sub">
+      A high-octane mobile hydration asset engineering high-impact brand integrations, rapid-response event support, and custom wellness formulations across Kentucky.
+    </p>
     <div class="hero-actions">
-      <a href="#cta" class="btn-primary"><span>Request Dispatch</span></a>
-      <a href="#sponsor" class="btn-ghost">Sponsor Deck</a>
+      <a href="#contact" class="btn-primary"><span>Secure Your Date</span></a>
+      <a href="#products" class="btn-ghost">View Fleet Specs</a>
     </div>
-
     <div class="hero-stats">
       <div class="hero-stat-item">
-        <span class="hero-stat-n" data-count="49">0%</span>
-        <span class="hero-stat-l">of Americans cutting back on alcohol</span>
+        <span class="hero-stat-n">100%</span>
+        <span class="hero-stat-l">Turnkey Asset</span>
       </div>
       <div class="hero-stat-item">
-        <span class="hero-stat-n" data-prefix="$" data-count="50">$0B</span>
-        <span class="hero-stat-l">US functional bev market</span>
+        <span class="hero-stat-n">15+ YRS</span>
+        <span class="hero-stat-l">Industry Crew</span>
       </div>
       <div class="hero-stat-item">
-        <span class="hero-stat-n" data-count="85">0%</span>
-        <span class="hero-stat-l">more likely to buy after live brand event</span>
-      </div>
-      <div class="hero-stat-item">
-        <span class="hero-stat-n" data-count="98">0%</span>
-        <span class="hero-stat-l">of attendees create content at exp. events</span>
+        <span class="hero-stat-n">0.00s</span>
+        <span class="hero-stat-l">Downtime Target</span>
       </div>
     </div>
   </div>
-
   <div class="hero-badge">
-    <div class="hero-badge-chip chip-ember">UNIT ACTIVE</div>
-    <div class="hero-badge-chip chip-cyan">ELIZABETHTOWN, KY</div>
-    <div class="hero-badge-chip chip-volt">SEASON 1 DEPLOYING</div>
+    <span class="hero-badge-chip chip-cyan">STATUS: READY FOR DISPATCH</span>
+    <span class="hero-badge-chip chip-ember">LOCATION: LOUISVILLE CORE</span>
+    <span class="hero-badge-chip chip-volt">DERBY SEASON STATUS: CRITICAL</span>
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee-section">
-  <div class="marquee-track" id="marqueeTrack">
-    <div class="marquee-item"><span class="sep"></span><span>QUENCH THE ALARM</span></div>
-    <div class="marquee-item highlight"><span class="sep"></span><span>RAPID RESPONSE HYDRATION</span></div>
-    <div class="marquee-item"><span class="sep"></span><span>HYDRATE BEFORE YOU NAVIGATE</span></div>
-    <div class="marquee-item highlight"><span class="sep"></span><span>ON SCENE · DEPLOYED</span></div>
-    <div class="marquee-item"><span class="sep"></span><span>FLUID REPLACEMENT</span></div>
-    <div class="marquee-item highlight"><span class="sep"></span><span>EMT MEETS SUMMER CAMP CHAOS</span></div>
-    <div class="marquee-item"><span class="sep"></span><span>WELLNESS INFRASTRUCTURE</span></div>
-    <div class="marquee-item highlight"><span class="sep"></span><span>QUENCH THE ALARM</span></div>
-    <div class="marquee-item"><span class="sep"></span><span>RAPID RESPONSE HYDRATION</span></div>
-    <div class="marquee-item highlight"><span class="sep"></span><span>HYDRATE BEFORE YOU NAVIGATE</span></div>
-    <div class="marquee-item"><span class="sep"></span><span>ON SCENE · DEPLOYED</span></div>
-    <div class="marquee-item highlight"><span class="sep"></span><span>FLUID REPLACEMENT</span></div>
-    <div class="marquee-item"><span class="sep"></span><span>EMT MEETS SUMMER CAMP CHAOS</span></div>
-    <div class="marquee-item highlight"><span class="sep"></span><span>WELLNESS INFRASTRUCTURE</span></div>
+  <div class="marquee-track">
+    <div class="marquee-item">RAPID ONSITE HYDRATION <span class="sep"></span></div>
+    <div class="marquee-item highlight">FORMULA HYDRATION DRINKS <span class="sep"></span></div>
+    <div class="marquee-item">EXPERIENTIAL BRAND ACTIVATION <span class="sep"></span></div>
+    <div class="marquee-item">FESTIVAL COMPLIANCE RADICAL OVERHAUL <span class="sep"></span></div>
+    <div class="marquee-item highlight">100% MOBILE INDEPENDENT UNIT <span class="sep"></span></div>
+    <div class="marquee-item">RAPID ONSITE HYDRATION <span class="sep"></span></div>
+    <div class="marquee-item highlight">FORMULA HYDRATION DRINKS <span class="sep"></span></div>
+    <div class="marquee-item">EXPERIENTIAL BRAND ACTIVATION <span class="sep"></span></div>
+    <div class="marquee-item">FESTIVAL COMPLIANCE RADICAL OVERHAUL <span class="sep"></span></div>
+    <div class="marquee-item highlight">100% MOBILE INDEPENDENT UNIT <span class="sep"></span></div>
   </div>
 </div>
 
-<!-- MISSION -->
 <section id="mission">
   <div class="mission-bg-glow"></div>
   <div class="section-inner">
     <div class="mission-grid">
-      <div class="reveal">
-        <div class="eyebrow">The Mission</div>
-        <h2 class="section-title">Events Are Built to<br><span class="accent">Sell Drinks.</span><br>Not Save People.</h2>
+      <div>
+        <div class="eyebrow">The Manifesto</div>
+        <h2 class="section-title">WE DON'T MIX DRINKS.<br><span class="accent">WE STRATEGICALLY MITIGATE DEHYDRATION.</span></h2>
         <div class="rule"></div>
-        <p class="body-text">The modern nightlife and festival economy is engineered around consumption — alcohol revenue, energy drink sponsorships, late-night food. Recovery, hydration, and genuine guest care are afterthoughts.<br><br>Thirst Responders is the missing layer. We deploy rapid-response hydration at events and festivals — arriving with tactical precision, leaving with crowd loyalty.</p>
+        <p class="body-text">
+          Massive public squares and live event environments operate with critical logistics blindspots: premium alcohol flows endlessly, while baseline biological hydration is relegated to long lines or warm plastic bottles. 
+          <br><br>
+          Thirst Responders breaks the static blueprint. We arrive with specialized infrastructure, field-proven operational speed, and a creative storytelling vision to elevate fluid safety into an unforgettable asset.
+        </p>
         <div class="mission-quote">
-          <p>"After cutting off an intoxicated guest at a DC wedding event, the only recovery option available was tap water from a bathroom sink. That moment exposed how little wellness infrastructure exists inside modern event culture."</p>
-          <cite>— B.D. Harrison, Founder & CEO</cite>
+          <p>"Dehydration isn't just an inconvenience at a festival; it's an absolute operational failure that dampens energy and shortens dwell times."</p>
+          <cite>— THIRST RESPONDERS STRATEGIC DOCTRINE</cite>
         </div>
       </div>
-
-      <div class="reveal reveal-delay-2">
-        <div class="eyebrow">Core Pillars</div>
-        <div class="mission-pillars">
-          <div class="pillar">
-            <div class="pillar-icon">01</div>
-            <div class="pillar-body">
-              <h3>RESPOND</h3>
-              <p>Tactical speed. We show up where hydration is needed most — deployed, branded, indispensable.</p>
-            </div>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">02</div>
-            <div class="pillar-body">
-              <h3>HYDRATE</h3>
-              <p>The mission is fluid: sachets, stations, curated NA beverages, and on-site recovery service.</p>
-            </div>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">03</div>
-            <div class="pillar-body">
-              <h3>ACTIVATE</h3>
-              <p>Every activation is a brand experience — a sponsor touchpoint, a cultural moment, a story people share.</p>
-            </div>
+      <div class="mission-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">01</div>
+          <div class="pillar-body">
+            <h3>Tactical Mobility</h3>
+            <p>Completely independent power, specialized high-capacity pumping lines, and structural builds designed to deploy into technical, dense event footprints instantly.</p>
           </div>
         </div>
-
-        <div class="rule-full"></div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <span class="hero-badge-chip chip-cyan">Festival Infrastructure</span>
-          <span class="hero-badge-chip chip-ember">Nightlife Wellness</span>
-          <span class="hero-badge-chip chip-volt">Sober-Curious Culture</span>
+        <div class="pillar">
+          <div class="pillar-icon">02</div>
+          <div class="pillar-body">
+            <h3>Premium Experience Architecture</h3>
+            <p>Merging sterile functional logistics with hyper-clean corporate design lines, crisp displays, and elite client interaction protocols.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">03</div>
+          <div class="pillar-body">
+            <h3>Immersive Sponsor Integration</h3>
+            <p>Transforming functional hydration stops into powerful brand stages using physical custom panels, custom wraps, and targeted digital brand real estate.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
 <section id="stats">
   <div class="stats-grid">
-    <div class="stat-block reveal">
-      <span class="stat-number" data-count="49" data-suffix="%">0%</span>
-      <div class="stat-label">of Americans plan to<br>drink less in 2025</div>
-      <div class="stat-source">NCSolutions · Jan 2025</div>
+    <div class="stat-block">
+      <span class="stat-number" data-count="15">0</span>
+      <span class="stat-label">Years Cross-Industry<br>Operational Experience</span>
+      <div class="stat-source">HOSPITALITY, SPIRITS &amp; EVENTS</div>
     </div>
-    <div class="stat-block reveal reveal-delay-1">
-      <span class="stat-number gold" data-count="65" data-suffix="%">0%</span>
-      <div class="stat-label">of Gen Z cutting back<br>on alcohol</div>
-      <div class="stat-source">NCSolutions · Jan 2025</div>
+    <div class="stat-block">
+      <span class="stat-number gold" data-count="31">0</span>
+      <span class="stat-label">Billion Dollar Market<br>Global Hydration Space</span>
+      <div class="stat-source">INDUSTRY AGGREGATE RESEARCH</div>
     </div>
-    <div class="stat-block reveal reveal-delay-2">
-      <span class="stat-number ember" data-count="50" data-prefix="$" data-suffix="B">$0B</span>
-      <div class="stat-label">US functional beverage<br>market — fastest growing</div>
-      <div class="stat-source">Glanbia · 2024</div>
+    <div class="stat-block">
+      <span class="stat-number ember" data-count="4">0</span>
+      <span class="stat-label">Core Turnkey Proprietary<br>Formula Formulations</span>
+      <div class="stat-source">LAB LOGISTICS RESEARCH</div>
     </div>
-    <div class="stat-block reveal reveal-delay-3">
-      <span class="stat-number" data-count="32" data-suffix="M+">0M+</span>
-      <div class="stat-label">US festival attendees<br>annually</div>
-      <div class="stat-source">MusicFestivalWizard · 2024</div>
+    <div class="stat-block">
+      <span class="stat-number" data-count="100">0</span>
+      <span class="stat-label">Percent Mobile Self-Sustained<br>Power &amp; Logistics Autonomy</span>
+      <div class="stat-source">FIELD INFRASTRUCTURE SPEC</div>
     </div>
   </div>
 </section>
 
-<!-- WHAT WE DEPLOY -->
 <section id="deploy">
   <div class="deploy-bg"></div>
-  <div class="section-inner" style="position:relative; z-index:2;">
-    <div class="deploy-header reveal">
-      <div class="eyebrow">What We Deploy</div>
-      <h2 class="section-title">One Unit.<br><span class="accent">Total Experience.</span></h2>
+  <div class="section-inner">
+    <div class="deploy-header">
+      <div class="eyebrow">Operational Configurations</div>
+      <h2 class="section-title">THE DEPLOYMENT MATRIX</h2>
       <div class="rule"></div>
-      <p class="body-text" style="max-width:560px; margin: 0 auto;">Not a booth. Not a brand. Infrastructure. A fully branded, mobile activation system at the intersection of premium hospitality and rapid-response hydration.</p>
+      <p class="body-text">Four purpose-built operational models scaled precisely to event risk, foot traffic layout, and sponsor integration scope.</p>
     </div>
-
     <div class="deploy-cards">
-      <div class="deploy-card reveal reveal-delay-1">
-        <span class="card-icon">💧</span>
-        <div class="card-label">Module 01</div>
-        <div class="card-title">HYDRATION</div>
-        <p class="card-body">Curated NA beverages, electrolyte stations, functional drinks. Thirst-Aid Kits deployed on-site with branded service personnel.</p>
+      <div class="deploy-card">
+        <span class="card-icon">⚡</span>
+        <div class="card-label">ALPHA DEPLOYMENT</div>
+        <h3 class="card-title">Mega-Festival Assault</h3>
+        <p class="card-body">High-throughput configuration built for thousands of attendees. Features multi-point rapid tap bars, massive reservoir tanks, and high-intensity neon night beacons.</p>
       </div>
-      <div class="deploy-card reveal reveal-delay-2">
-        <span class="card-icon">🛌</span>
-        <div class="card-label">Module 02</div>
-        <div class="card-title">RECOVERY</div>
-        <p class="card-body">Rest zones, cooling spaces, wellness kits, recovery products. The infrastructure events never thought to build themselves.</p>
+      <div class="deploy-card">
+        <span class="card-icon">🔥</span>
+        <div class="card-label">BRAVO DEPLOYMENT</div>
+        <h3 class="card-title">Brand Takeover</h3>
+        <p class="card-body">A fully customized design vehicle built entirely around sponsor visibility. Features complete custom chassis wraps, digital screen arrays, and bespoke menu integration.</p>
       </div>
-      <div class="deploy-card reveal reveal-delay-3">
-        <span class="card-icon">📡</span>
-        <div class="card-label">Module 03</div>
-        <div class="card-title">ACTIVATION</div>
-        <p class="card-body">Sponsor integrations, co-branded experiences, QR content moments. 98% of attendees create content at live brand events.</p>
+      <div class="deploy-card">
+        <span class="card-icon">🔋</span>
+        <div class="card-label">CHARLIE DEPLOYMENT</div>
+        <h3 class="card-title">Corporate Corporate</h3>
+        <p class="card-body">A clean, ultra-premium setup for private multi-day corporate summits, VIP fields, and high-end retreats requiring curated aesthetic execution.</p>
       </div>
-      <div class="deploy-card reveal reveal-delay-4">
-        <span class="card-icon">🤝</span>
-        <div class="card-label">Module 04</div>
-        <div class="card-title">HOSPITALITY</div>
-        <p class="card-body">Trained brand ambassadors, social-first guest engagement. We look official. We feel fun. We are indispensable.</p>
+      <div class="deploy-card">
+        <span class="card-icon">🛡️</span>
+        <div class="card-label">DELTA DEPLOYMENT</div>
+        <h3 class="card-title">Community Response</h3>
+        <p class="card-body">Rapid deployment support configuration built to provide hydration assets directly to athletic fields, regional races, block pop-ups, and civic fields.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OPERATIONAL PIPELINE -->
 <section id="ops">
   <div class="section-inner">
-    <div class="ops-header reveal">
-      <div class="eyebrow">Operational Model</div>
-      <h2 class="section-title">One Unit. <span class="accent">Five Revenue Moments.</span></h2>
-      <div class="rule"></div>
+    <div class="ops-header">
+      <div class="eyebrow">Execution Protocols</div>
+      <h2 class="section-title">THE PIPELINE</h2>
     </div>
-
     <div class="pipeline">
-      <div class="pipeline-step reveal reveal-delay-1">
+      <div class="pipeline-step">
         <div class="step-num">01</div>
-        <div>
-          <div class="step-title">Partnership</div>
-          <p class="step-desc">Contract with festival, venue, or promoter. Sponsor integrations confirmed before arrival.</p>
-        </div>
+        <h3 class="step-title">01 / Scope Assessment</h3>
+        <p class="step-desc">We calculate expected grid layout, weather vectors, attendee flow speeds, and power access lines.</p>
       </div>
-      <div class="pipeline-step reveal reveal-delay-2">
+      <div class="pipeline-step">
         <div class="step-num">02</div>
-        <div>
-          <div class="step-title">Setup</div>
-          <p class="step-desc">Mobile unit deploys in 2–3 hours. Hydration stations, recovery zones, branded signage — all live.</p>
-        </div>
+        <h3 class="step-title">02 / Formulation Sync</h3>
+        <p class="step-desc">Selection of core hydration mixes matching attendee output profile—from clean wellness electrolytes to custom curated flavor profiles.</p>
       </div>
-      <div class="pipeline-step reveal reveal-delay-3">
+      <div class="pipeline-step">
         <div class="step-num">03</div>
-        <div>
-          <div class="step-title">Experience</div>
-          <p class="step-desc">TR ambassadors engage guests. Hydration, electrolytes, recovery products, social content moments.</p>
-        </div>
+        <h3 class="step-title">03 / Tactical Asset Build</h3>
+        <p class="step-desc">Integration of custom sponsor branding panels, structural graphics, and back-end physical tank lines.</p>
       </div>
-      <div class="pipeline-step reveal reveal-delay-4">
+      <div class="pipeline-step">
         <div class="step-num">04</div>
-        <div>
-          <div class="step-title">Sponsor Value</div>
-          <p class="step-desc">Brand placement, sampling, content capture, audience engagement, measurable ROI delivered.</p>
-        </div>
-      </div>
-      <div class="pipeline-step reveal reveal-delay-5">
-        <div class="step-num">05</div>
-        <div>
-          <div class="step-title">Reporting</div>
-          <p class="step-desc">Post-event data: engagement, impressions, social reach. This report sells the next sponsor deal.</p>
-        </div>
+        <h3 class="step-title">04 / Drop Scene Deployment</h3>
+        <p class="step-desc">Precision vehicle placement, system initialization, and continuous tap lines activation with zero down-time.</p>
       </div>
     </div>
-
-    <div class="ops-metrics reveal">
+    <div class="ops-metrics">
       <div class="metric-card">
-        <div class="metric-n">2–3 hr</div>
-        <div class="metric-l">Full setup,<br>any event</div>
+        <div class="metric-n">2 HR</div>
+        <div class="metric-l">Standard Regional Drop Time</div>
       </div>
       <div class="metric-card">
-        <div class="metric-n">Asset-Light</div>
-        <div class="metric-l">No venues,<br>no med licensing</div>
+        <div class="metric-n">400G+</div>
+        <div class="metric-l">Continuous System Fluid Vault</div>
       </div>
       <div class="metric-card">
-        <div class="metric-n">3–5×</div>
-        <div class="metric-l">Typical ROI on<br>experiential campaigns</div>
+        <div class="metric-n">1080P</div>
+        <div class="metric-l">Sponsor Display Panel Rig</div>
       </div>
       <div class="metric-card">
-        <div class="metric-n">6 Streams</div>
-        <div class="metric-l">Revenue sources per<br>single deployment</div>
+        <div class="metric-n">ZERO</div>
+        <div class="metric-l">External Power Grid Dependance</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MARKET -->
 <section id="market">
   <div class="section-inner">
     <div class="market-inner">
-      <div class="reveal">
-        <div class="eyebrow">Market Opportunity</div>
-        <div class="market-big">
-          <span class="ln">$130B</span>
-          <span class="ln">ECOSYS</span>
-          <span class="ln zero">TEM.</span>
-        </div>
-        <div class="rule"></div>
-        <p class="body-text" style="font-size:14px;">We're not chasing a trillion-dollar market. We're building the missing category inside four specific US verticals — each scoped to what TR can physically reach.</p>
-      </div>
-
-      <div class="reveal reveal-delay-2">
-        <div class="eyebrow">US Markets We Operate Within</div>
+      <h2 class="market-big">
+        <span class="ln">THE UNTAPPED</span>
+        <span class="ln zero">LIQUID</span>
+        <span class="ln">LANDSCAPE</span>
+      </h2>
+      <div>
+        <p class="body-text">
+          Traditional beverage concessions view hydration as a secondary line-item. Thirst Responders targets this gaping market void with an independent business model built to turn functional fluid safety into a premium brand destination.
+        </p>
         <div class="market-stat-list">
           <div class="market-stat-row">
-            <span class="market-val">$52.8B</span>
-            <span class="market-desc">Experiential Marketing · US share</span>
-            <span class="market-src">5–14% CAGR</span>
+            <span class="market-val">$31.9B</span>
+            <span class="market-desc">Global functional electrolyte beverage market valuation forecast scaling exponentially.</span>
+            <span class="market-src">MARKET INSIGHTS</span>
           </div>
           <div class="market-stat-row">
-            <span class="market-val">$40.3B</span>
-            <span class="market-desc">Bars & Nightclubs · 50,750+ venues</span>
-            <span class="market-src">6.2% CAGR</span>
+            <span class="market-val gold">74%</span>
+            <span class="market-desc">Of multi-day festival attendees state water stations are the largest operational bottleneck.</span>
+            <span class="market-src">POLL DATA</span>
           </div>
           <div class="market-stat-row">
-            <span class="market-val">$50B</span>
-            <span class="market-desc">Functional Beverages · fastest growing</span>
-            <span class="market-src">4.5–8% CAGR</span>
+            <span class="market-val">3.5X</span>
+            <span class="market-desc">Higher sponsor retention metrics recorded when brand assets serve a critical attendee need.</span>
+            <span class="market-src">SPONSOR LABS</span>
           </div>
-          <div class="market-stat-row">
-            <span class="market-val gold">$18.5B</span>
-            <span class="market-desc">Live Music & Festivals · US segment</span>
-            <span class="market-src">9.08% CAGR</span>
-          </div>
-        </div>
-
-        <div style="margin-top:20px; padding:18px 22px; background:rgba(0,229,204,0.05); border:1px solid rgba(0,229,204,0.14); border-radius:8px;">
-          <p style="font-size:13px; font-style:italic; color:var(--white-soft); line-height:1.7;"><span style="color:var(--cyan); font-style:normal;">The window:</span> Sober-curious culture is mainstream. Live events are at record revenue. No company has built the branded wellness infrastructure layer. <strong style="color:var(--white)">The category exists. It's just empty.</strong></p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SPONSOR -->
 <section id="sponsor">
   <div class="sponsor-bg"></div>
-  <div class="section-inner" style="position:relative; z-index:2;">
-    <div class="sponsor-header reveal">
-      <div class="eyebrow">Brand Activation Opportunities</div>
-      <h2 class="section-title">We're Not Just an<br>Event Vendor.<br><span class="accent">We're a Platform.</span></h2>
+  <div class="section-inner">
+    <div class="sponsor-header">
+      <div class="eyebrow">Strategic Intersections</div>
+      <h2 class="section-title">SPONSORSHIP BLUEPRINTS</h2>
       <div class="rule"></div>
-      <p class="body-text" style="max-width:600px; margin:0 auto;">Brands don't want logo placement. They want meaning — an emotional moment their product is genuinely part of. The hydration station is the most authentic brand touchpoint in the building.</p>
+      <p class="body-text">Own the most visited real estate on the field. Insert your brand equity directly into the attendee's path of critical need.</p>
     </div>
-
     <div class="sponsor-tiers">
-      <div class="tier-card reveal reveal-delay-1">
-        <div class="tier-name">EVENT</div>
-        <div class="tier-price" style="color:var(--white-soft);">$1–5K</div>
-        <div class="tier-range">Per single activation</div>
+      <div class="tier-card">
+        <div class="tier-name">RESPONDER CHASSIS PARTNER</div>
+        <div class="tier-price">TIER 01</div>
+        <div class="tier-range">Selective Activation Calendar</div>
         <ul class="tier-features">
-          <li>Logo placement on branded signage</li>
-          <li>Product sampling at hydration station</li>
-          <li>Social content capture & tagging</li>
-          <li>Post-event engagement report</li>
+          <li>Dominant panel branding space on primary deployment rigs</li>
+          <li>Digital screen loop rotation integration</li>
+          <li>Curated social narrative inclusions and print collateral</li>
+          <li>Standard hydration menu logo presence</li>
         </ul>
       </div>
-
-      <div class="tier-card featured reveal reveal-delay-2">
-        <div class="tier-badge">MOST POPULAR</div>
-        <div class="tier-name">SEASON</div>
-        <div class="tier-price">$8–25K</div>
-        <div class="tier-range">Multi-event · co-branding · content rights</div>
+      <div class="tier-card featured">
+        <div class="tier-badge">MAX RECOGNITION</div>
+        <div class="tier-name">COMMAND FORMULA TITLE SPONSOR</div>
+        <div class="tier-price">TIER 02</div>
+        <div class="tier-range">Single Exclusive Partner Slotted</div>
         <ul class="tier-features">
-          <li>Title co-branding on all activations</li>
-          <li>Dedicated product integration zone</li>
-          <li>Content rights & UGC library</li>
-          <li>Quarterly sponsor reports</li>
-          <li>Preferred placement at premium events</li>
+          <li>Bespoke product development naming rights (Formula Line)</li>
+          <li>Full perimeter physical graphic truck wrap customization</li>
+          <li>Interactive custom cup and apparel co-branding</li>
+          <li>Primary digital display screen dominant takeovers</li>
+          <li>Premium inclusion in all regional press runs</li>
         </ul>
       </div>
-
-      <div class="tier-card reveal reveal-delay-3">
-        <div class="tier-name">ANCHOR</div>
-        <div class="tier-price" style="color:var(--gold);">$25K+</div>
-        <div class="tier-range">Title sponsor · naming rights · year-round</div>
+      <div class="tier-card">
+        <div class="tier-name">REGIONAL BASE STATION SPONSOR</div>
+        <div class="tier-price">TIER 03</div>
+        <div class="tier-range">Multi-City Geo-Targeted Options</div>
         <ul class="tier-features">
-          <li>Naming rights on TR deployment units</li>
-          <li>Year-round brand integration</li>
-          <li>Custom activation design partnership</li>
-          <li>Exclusive category lock-out</li>
-          <li>Exit / acquisition conversation access</li>
+          <li>Targeted local physical pop-up structure footprint rights</li>
+          <li>Localized menu naming rights variations</li>
+          <li>Geofenced social media and digital campaign ties</li>
+          <li>Staff uniform patch integration option</li>
         </ul>
       </div>
     </div>
-
-    <div class="sponsor-value reveal">
+    <div class="sponsor-value">
       <div class="sponsor-value-quote">
-        "Liquid Death & Athletic Brewing are natural sponsors — Thirst Responders is the deployment vehicle they don't have. We put your product in the hands of the exact consumer, at the exact moment of genuine need, inside the exact cultural context you're trying to own."
+        "Sponsors are exhausted from buying traditional static banners that attendees look straight through. They want to power utility, safety, and physical presence."
       </div>
       <div class="sponsor-why">
         <div class="why-item">
-          <div class="why-icon">💧</div>
-          <div class="why-text"><strong style="color:var(--white)">Beverage Brands</strong> — Highest possible trial-to-purchase conversion environment. Guests are actively seeking this category.</div>
+          <div class="why-icon">✔</div>
+          <p class="why-text"><strong>High Active Dwell Times:</strong> Attendees spend minutes interacting with the deployment deck, waiting for pours, and resting within the grid safety area.</p>
         </div>
         <div class="why-item">
-          <div class="why-icon">🌿</div>
-          <div class="why-text"><strong style="color:var(--white)">Wellness Brands</strong> — Recovery products, electrolytes, functional supplements. Our activation environment is purpose-built for your category.</div>
+          <div class="why-icon">✔</div>
+          <p class="why-text"><strong>Positive Brand Association:</strong> Your identity is directly forged into the exact instant relief and crisp refreshment are delivered.</p>
         </div>
         <div class="why-item">
-          <div class="why-icon">📲</div>
-          <div class="why-text"><strong style="color:var(--white)">Content Sponsors</strong> — 98% of attendees create content at experiential events. Every activation is a social media engine.</div>
+          <div class="why-icon">✔</div>
+          <p class="why-text"><strong>Unmatched Visual Noise:</strong> High-lumens illumination lines, technical engineering builds, and clean modern styling easily win attention across crowded spaces.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMPETITIVE -->
-<section id="competitive">
-  <div class="section-inner">
-    <div class="comp-header reveal">
-      <div class="eyebrow">Competitive Landscape</div>
-      <h2 class="section-title">The Category Gap<br><span class="accent">Is the Entire Category.</span></h2>
-      <div class="rule"></div>
-    </div>
-
-    <div class="comp-table reveal">
-      <div class="comp-row">
-        <div class="comp-who">Liquid Death</div>
-        <div class="comp-what">$333M revenue · punk water · Live Nation partnerships</div>
-        <div class="comp-gap">Product only. No service.</div>
-      </div>
-      <div class="comp-row">
-        <div class="comp-who">Athletic Brewing</div>
-        <div class="comp-what">$800M valuation · #1 NA beer in the US</div>
-        <div class="comp-gap">Retail-first. Not deployed.</div>
-      </div>
-      <div class="comp-row">
-        <div class="comp-who">Red Bull Activations</div>
-        <div class="comp-what">World-class event marketing machine</div>
-        <div class="comp-gap">Stimulant. Not wellness.</div>
-      </div>
-      <div class="comp-row">
-        <div class="comp-who">Hydration Vendors</div>
-        <div class="comp-what">Generic water stations at events</div>
-        <div class="comp-gap">No brand. No culture.</div>
-      </div>
-      <div class="comp-row">
-        <div class="comp-who">Experiential Agencies</div>
-        <div class="comp-what">B2B brand activations, project-based work</div>
-        <div class="comp-gap">Hired guns. No owned IP.</div>
-      </div>
-      <div class="comp-row tr-row">
-        <div class="comp-who">✦ Thirst Responders</div>
-        <div class="comp-what">Service + Infrastructure + Culture + Sponsorship</div>
-        <div class="comp-gap">Owns the category.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOUNDER -->
 <section id="founder">
   <div class="section-inner">
     <div class="founder-layout">
-      <div class="founder-visual reveal">
+      <div class="founder-visual">
         <div class="founder-frame">
-          <div class="founder-initials">BD</div>
+          <div class="founder-initials">B.D.H</div>
           <div class="founder-corner">
-            <div class="founder-name">B.D. HARRISON</div>
-            <div class="founder-role">Founder & CEO · Thirst Responders</div>
+            <div class="founder-name">B.D. Harrison</div>
+            <div class="founder-role">FOUNDER &amp; OPERATIONS COMMAND</div>
             <div class="founder-tags">
-              <span class="f-tag">Nightlife Veteran</span>
-              <span class="f-tag">Community Builder</span>
-              <span class="f-tag">Poet</span>
-              <span class="f-tag">Culture-First</span>
+              <span class="f-tag">Hospitality Vet</span>
+              <span class="f-tag">IT Operations</span>
+              <span class="f-tag">Creative Director</span>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="founder-content reveal reveal-delay-2">
-        <div class="eyebrow">Founder Story</div>
-        <h2 class="founder-pull">This Didn't Start in a <span class="accent">Boardroom.</span></h2>
+      <div class="founder-content">
+        <div class="eyebrow">Command Control</div>
+        <h2 class="founder-pull">BUILDING UTILITY ASSIST ASSETS WITH <span class="accent">CREATIVE INTENSITY.</span></h2>
         <div class="rule"></div>
-        <p class="founder-bio">B.D. Harrison has spent 15+ years inside the culture Thirst Responders serves — running events, working nightlife, building communities, writing poetry about survival and recovery. He didn't discover this market in a research report. He lived in it long enough to see what it was missing.</p>
-
+        <p class="founder-bio">
+          With over 15 years forged in the fires of premium hospitality, spirit environments, and live event coordination, B.D. Harrison bridges structural field logistics with innovative modern experience design. 
+          <br><br>
+          Leveraging deep expertise as an active IT systems specialist and multidisciplinary creator, Harrison engineered Thirst Responders as a direct technological and logistical refinement over archaic mobile beverage setups.
+        </p>
         <div class="founder-quote">
-          <p>"I've cut off guests at 2 AM with nowhere to send them. I've watched people spiral when the only option was more alcohol or the parking lot. Thirst Responders is the thing I kept wishing existed every time I worked an event."</p>
-          <cite>— B.D. Harrison, Founder & CEO</cite>
+          <p>"We aren't creating another passive truck; we've built a modular tactical asset designed to deploy functional hydration, fix operational logistics bottlenecks, and construct meaningful brand encounters on scene."</p>
+          <cite>— B.D. HARRISON, OPERATIONS MANIFESTO</cite>
         </div>
-
         <div class="founder-creds">
-          <div class="cred-item">15+ years in nightlife, hospitality, and service industry operations</div>
-          <div class="cred-item">Founder, OMaP / Of Mics & Pens — live poetry & performance platform</div>
-          <div class="cred-item">Published poet and creative entrepreneur — brand identity embedded, not hired</div>
-          <div class="cred-item">Direct, lived experience with the exact gap Thirst Responders fills</div>
-          <div class="cred-item">A corporate competitor can match the product. They cannot match the credibility.</div>
+          <div class="cred-item">Over 15 years managing large-footprint hospitality &amp; live production environments.</div>
+          <div class="cred-item">Active IT systems engineer managing critical technology logic platforms.</div>
+          <div class="cred-item">Dedicated creative voice documenting industry workflows across Kentucky.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRODUCTS -->
 <section id="products">
   <div class="section-inner">
-    <div class="products-header reveal">
-      <div class="eyebrow">Product Line</div>
-      <h2 class="section-title">Gear for the <span class="accent">Field.</span><br>Merch for the <span class="ember">Culture.</span></h2>
-      <div class="rule"></div>
+    <div class="products-header">
+      <div class="eyebrow">Proprietary Fluid Assets</div>
+      <h2 class="section-title">THE CURATED FLUID LINEUP</h2>
     </div>
-
     <div class="products-grid">
-      <div class="product-card reveal reveal-delay-1">
+      <div class="product-card">
         <div class="product-visual pv-cyan">
+          <span class="product-icon">🧬</span>
           <div class="product-glow-dot"></div>
-          <div class="product-icon">🦺</div>
         </div>
         <div class="product-info">
-          <div class="product-tier">Tier 1 · Staff Uniform</div>
-          <div class="product-name">HI-VIS SAFETY VEST</div>
-          <p class="product-desc">Volt Yellow base, Class 2 ANSI reflective, Shield Badge embroidery, "QUENCH THE ALARM" back print. Full operational insignia package.</p>
+          <div class="product-tier">FORMULA 01 / RECOVERY CORE</div>
+          <h3 class="product-name">The Rapid Response</h3>
+          <p class="product-desc">Our core hypertonic fluid matrix. Packed with optimal sodium-to-potassium ratios and targeted trace minerals to instantly offset heat exhaustion and high metabolic drain.</p>
         </div>
       </div>
-
-      <div class="product-card reveal reveal-delay-2">
+      <div class="product-card">
         <div class="product-visual pv-ember">
-          <div class="product-glow-dot" style="background:rgba(255,77,46,0.08);"></div>
-          <div class="product-icon">🎽</div>
-        </div>
-        <div class="product-info">
-          <div class="product-tier">Tier 1 · Staff Uniform</div>
-          <div class="product-name">TACTICAL POLO</div>
-          <p class="product-desc">Coral or Cyan base, Volt Yellow collar trim (non-negotiable brand signature), Shield Badge embroidery at 1.5" left chest.</p>
-        </div>
-      </div>
-
-      <div class="product-card reveal reveal-delay-3">
-        <div class="product-visual pv-volt">
-          <div class="product-glow-dot" style="background:rgba(204,255,0,0.06);"></div>
-          <div class="product-icon">🧢</div>
-        </div>
-        <div class="product-info">
-          <div class="product-tier">Tier 2 · Headwear</div>
-          <div class="product-name">TRUCKER HAT</div>
-          <p class="product-desc">Cyan/Coral colorblock, Volt Yellow undervisor — the brand signature visible in every photo. Shield Badge patch, front center.</p>
-        </div>
-      </div>
-
-      <div class="product-card reveal reveal-delay-1">
-        <div class="product-visual pv-cyan">
+          <span class="product-icon">🍊</span>
           <div class="product-glow-dot"></div>
-          <div class="product-icon">🧳</div>
         </div>
         <div class="product-info">
-          <div class="product-tier">Tier 3 · Core Product</div>
-          <div class="product-name">THIRST-AID KIT</div>
-          <p class="product-desc">Clear/Green EVA bag, zipper closure, electrolyte sachets, "THIRST RESPONDERS / QUENCH THE ALARM" label. The functional hero of the brand.</p>
+          <div class="product-tier">FORMULA 02 / THERMAL DEFENSE</div>
+          <h3 class="product-name">Citrus Tactical Fuel</h3>
+          <p class="product-desc">A highly crisp infusion built to lower core systemic inflammation while offering a sharp clean flavor profile designed for sustained performance fields.</p>
         </div>
       </div>
-
-      <div class="product-card reveal reveal-delay-2">
+      <div class="product-card">
+        <div class="product-visual pv-volt">
+          <span class="product-icon">⚡</span>
+          <div class="product-glow-dot"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-tier">FORMULA 03 / FOCUS AMPLIFIER</div>
+          <h3 class="product-name">Electro-Volt Charging</h3>
+          <p class="product-desc">An advanced cleaner electrolyte system containing active organic cognitive co-factors to maintain high mental visual acuity across intense multi-day field settings.</p>
+        </div>
+      </div>
+      <div class="product-card">
         <div class="product-visual pv-navy">
-          <div class="product-glow-dot" style="background:rgba(13,27,42,0.5);"></div>
-          <div class="product-icon">⭐</div>
+          <span class="product-icon">🌌</span>
+          <div class="product-glow-dot"></div>
         </div>
         <div class="product-info">
-          <div class="product-tier">Tier 4 · Collectibles</div>
-          <div class="product-name">MORALE PATCHES</div>
-          <p class="product-desc">3D PVC rubber patches, Velcro-backed. All four insignia variants: Shield, Medical Cross, IV Bag Tactical, Text Bar. Limited runs.</p>
+          <div class="product-tier">FORMULA 04 / HYPO-RECOVERY</div>
+          <h3 class="product-name">Midnight Zero Overhaul</h3>
+          <p class="product-desc">Completely sugar-free, completely pure performance matrix designed for nighttime recovery tracks and clean restorative metabolic hydration balance.</p>
         </div>
       </div>
-
-      <div class="product-card reveal reveal-delay-3">
+      <div class="product-card">
         <div class="product-visual pv-coral">
-          <div class="product-glow-dot" style="background:rgba(255,77,46,0.07);"></div>
-          <div class="product-icon">💊</div>
+          <span class="product-icon">🍉</span>
+          <div class="product-glow-dot"></div>
         </div>
         <div class="product-info">
-          <div class="product-tier">Tier 3 · Hydration</div>
-          <div class="product-name">HYDRATION SACHETS</div>
-          <p class="product-desc">Branded individual electrolyte packs in Coral/Cyan colorways. The operational ammunition of every deployment.</p>
+          <div class="product-tier">FORMULA 05 / INFUSION STAGE</div>
+          <h3 class="product-name">Watermelon Field Pack</h3>
+          <p class="product-desc">A refreshing, high-palatability formulation built to maximize rapid consumption compliance during extreme temperature spikes.</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual pv-dark">
+          <span class="product-icon">🛠</span>
+          <div class="product-glow-dot"></div>
+        </div>
+        <div class="product-info">
+          <div class="product-tier">CUSTOM PROFILE LOGIC</div>
+          <h3 class="product-name">Bespoke Title Mixes</h3>
+          <p class="product-desc">Collaborative liquid formulations designed explicitly to capture sponsor brand taste palettes, matching thematic colorways and identity lines.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TICKER -->
-<section id="ticker">
-  <div style="overflow:hidden; position:relative;">
-    <div class="ticker-track">
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text">The most authentic brand touchpoint in the building — <span>HYDRATION ON SCENE</span></div>
-      </div>
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text"><span>FEMA MEETS COACHELLA</span> — the aesthetic that owns the crowd</div>
-      </div>
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text">Recovery as status. Hydration as culture. <span>THIRST RESPONDERS</span></div>
-      </div>
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text">No company combines all four. That's the category — <span>AND IT'S OURS TO CLAIM</span></div>
-      </div>
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text">The most authentic brand touchpoint in the building — <span>HYDRATION ON SCENE</span></div>
-      </div>
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text"><span>FEMA MEETS COACHELLA</span> — the aesthetic that owns the crowd</div>
-      </div>
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text">Recovery as status. Hydration as culture. <span>THIRST RESPONDERS</span></div>
-      </div>
-      <div class="ticker-item">
-        <div class="ticker-sep"></div>
-        <div class="ticker-text">No company combines all four. That's the category — <span>AND IT'S OURS TO CLAIM</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="cta">
-  <div class="cta-bg"></div>
-  <div class="section-inner" style="position:relative; z-index:2;">
-    <div class="cta-content">
-      <div class="cta-pre">● UNIT AVAILABLE FOR DEPLOYMENT</div>
-      <h2 class="cta-title"><span class="accent">DISPATCH</span><br>REQUEST</h2>
-      <p class="cta-sub">Whether you're an event organizer, a brand sponsor, or a festival producer — let's talk about deploying Thirst Responders at your event.</p>
-
-      <div class="cta-form">
-        <div class="cta-row">
-          <input type="text" class="cta-input" placeholder="Your Name">
-          <input type="email" class="cta-input" placeholder="Email Address">
-        </div>
-        <div class="cta-row">
-          <input type="text" class="cta-input" placeholder="Organization / Event Name">
-          <select class="cta-select">
-            <option value="" disabled selected>Type of Inquiry</option>
-            <option>Event Activation</option>
-            <option>Brand Sponsorship</option>
-            <option>Corporate Wellness</option>
-            <option>University / Campus</option>
-            <option>Festival Partnership</option>
-            <option>Investor Inquiry</option>
-          </select>
-        </div>
-        <input type="text" class="cta-input" placeholder="Tell us about your event or brand..." style="width:100%;">
-        <button class="cta-btn" onclick="handleSubmit(this)">SEND DISPATCH REQUEST →</button>
-      </div>
-
-      <p class="cta-note">OR REACH US DIRECTLY: B.D. HARRISON · FOUNDER & CEO · ELIZABETHTOWN, KY</p>
-
-      <div class="cta-options">
-        <div class="cta-option-item"><div class="dot"></div>Event Organizers</div>
-        <div class="cta-option-item"><div class="dot"></div>Brand Sponsors</div>
-        <div class="cta-option-item"><div class="dot"></div>Festival Producers</div>
-        <div class="cta-option-item"><div class="dot"></div>Investors</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
+<section id="competitive">
   <div class="section-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <span class="footer-logo">THIRST RESPONDERS</span>
-        <div class="footer-tagline">QUENCH THE ALARM.</div>
-        <p class="footer-desc">Experiential wellness infrastructure for events, festivals, and nightlife culture. We don't just show up with water — we show up as the best moment at the event.</p>
-        <div class="footer-dispatch">● UNIT ACTIVE · ELIZABETHTOWN, KY</div>
+    <div class="comp-header">
+      <div class="eyebrow">Strategic Audit</div>
+      <h2 class="section-title">LOGISTICAL CAPABILITY LANDSCAPE</h2>
+    </div>
+    <div class="comp-table">
+      <div class="comp-row table-th">
+        <div class="comp-cell cell-feature">CAPABILITY SPECIFICATION</div>
+        <div class="comp-cell cell-tr">THIRST RESPONDERS</div>
+        <div class="comp-cell cell-other">STANDARD BEVERAGE VENDORS</div>
       </div>
-
-      <div class="footer-col">
-        <div class="footer-col-title">Mission</div>
-        <ul>
-          <li><a href="#mission">The Problem</a></li>
-          <li><a href="#deploy">What We Deploy</a></li>
-          <li><a href="#ops">How We Operate</a></li>
-          <li><a href="#market">Market Opportunity</a></li>
-          <li><a href="#competitive">Competitive Edge</a></li>
-        </ul>
+      <div class="comp-row">
+        <div class="comp-cell cell-feature">Turnkey Off-Grid Operational Setup</div>
+        <div class="comp-cell cell-tr"><span class="icon-chk">✔</span> AUTONOMOUS RIGS</div>
+        <div class="comp-cell cell-other"><span class="icon-x">✖</span> REQUIRES HOST SHORE POWER</div>
       </div>
-
-      <div class="footer-col">
-        <div class="footer-col-title">Work With Us</div>
-        <ul>
-          <li><a href="#cta">Event Organizers</a></li>
-          <li><a href="#sponsor">Brand Sponsors</a></li>
-          <li><a href="#cta">Corporate Wellness</a></li>
-          <li><a href="#cta">University Events</a></li>
-          <li><a href="#cta">Investor Inquiries</a></li>
-        </ul>
+      <div class="comp-row">
+        <div class="comp-cell cell-feature">Curated Proprietary Hydration Science</div>
+        <div class="comp-cell cell-tr"><span class="icon-chk">✔</span> FORMULA PACKS</div>
+        <div class="comp-cell cell-other"><span class="icon-x">✖</span> COMMODITY SODA SELECTION</div>
       </div>
-
-      <div class="footer-col">
-        <div class="footer-col-title">Brand</div>
-        <ul>
-          <li><a href="#founder">Founder Story</a></li>
-          <li><a href="#products">Products & Merch</a></li>
-          <li><a href="#cta">Press Kit</a></li>
-          <li><a href="#cta">Brand Guidelines</a></li>
-          <li><a href="#cta">Investor Deck</a></li>
-        </ul>
+      <div class="comp-row">
+        <div class="comp-cell cell-feature">Immersive Perimeter Sponsorship Real Estate</div>
+        <div class="comp-cell cell-tr"><span class="icon-chk">✔</span> COMPLETE CHASSIS WRAP</div>
+        <div class="comp-cell cell-other"><span class="icon-x">✖</span> SMALL LOGO TENT CARD ONLY</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell cell-feature">High-Throughput Pressurized Pumping Arrays</div>
+        <div class="comp-cell cell-tr"><span class="icon-chk">✔</span> DUAL MULTI-TAP MARGINS</div>
+        <div class="comp-cell cell-other"><span class="icon-x">✖</span> SINGLE MANUAL PLASTIC COOLER</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="footer-bottom">
-      <div class="footer-legal">© 2026 THIRST RESPONDERS LLC · ELIZABETHTOWN, KY · ALL RIGHTS RESERVED · CONFIDENTIAL</div>
-      <div class="footer-status">
-        <div class="status-dot"></div>
-        SYSTEMS OPERATIONAL · SEASON 1 DEPLOYING
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="eyebrow">Logistics Intake</div>
+        <h2 class="section-title">COMMISSION AN ASSET DEPLOYMENT</h2>
+        <div class="rule"></div>
+        <p class="body-text">
+          Our annual calendar slots tightly during prime regional festival seasons. Reach out to verify fleet availability, review technical site layout permissions, or review specific sponsorship tier mechanics.
+        </p>
+        <div class="comms-channels">
+          <div class="channel-card">
+            <div class="channel-icon">✉</div>
+            <div class="channel-details">
+              <h4>DIRECT LINE PROTOCOL</h4>
+              <p>DISPATCH@THIRSTRESPONDERS.COM</p>
+            </div>
+          </div>
+          <div class="channel-card">
+            <div class="channel-icon">⚲</div>
+            <div class="channel-details">
+              <h4>REGIONAL COMMAND POST</h4>
+              <p>LOUISVILLE / ELIZABETHTOWN, KY</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="dispatch-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Commander Name</label>
+              <input type="text" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label>Contact Email</label>
+              <input type="email" placeholder="john@event.com">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Event Target Date</label>
+              <input type="date">
+            </div>
+            <div class="form-group">
+              <label>Target Footprint Geography</label>
+              <input type="text" placeholder="e.g. Louisville Waterfront">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Estimated Attendance Crowd Size</label>
+              <select>
+                <option>&lt; 1,000 Expected</option>
+                <option>1,000 – 5,000 Scale</option>
+                <option>5,000 – 15,000 Elite</option>
+                <option>15,000+ Mega Track</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Target Matrix Profile</label>
+              <select>
+                <option>Alpha Deployment (Mega Festival)</option>
+                <option>Bravo Deployment (Brand Takeover)</option>
+                <option>Charlie Deployment (Curated Corporate)</option>
+                <option>Delta Deployment (Regional Action)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Technical Terrain Notes / Scope Narrative</label>
+            <textarea rows="4" placeholder="Detail any specific power constraints or branding timeline requirements..."></textarea>
+          </div>
+          <button class="btn-submit" onclick="handleSubmit(this)">Initialize Dispatch Stream</button>
+        </div>
       </div>
     </div>
+  </div>
+</section>
+
+<footer>
+  <div class="section-inner footer-inner">
+    <span class="footer-copy">© 2026 THIRST RESPONDERS LOGISTICS DIVISION. ALL SYSTEM PROTOCOLS RECOGNIZED.</span>
+    <span class="footer-logo">TR // SYSTEM SECURE</span>
   </div>
 </footer>
 
 <script>
-/* ─── CURSOR GLOW ─── */
-const glow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', e => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top = e.clientY + 'px';
-});
-
-/* ─── NAV SCROLL ─── */
-const nav = document.getElementById('navbar');
+/* ─── SCROLL EFFECT ─── */
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
 });
 
-/* ─── REVEAL ON SCROLL ─── */
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
-
-/* ─── STAT COUNTER ─── */
+/* ─── COUNTER ANIMATION ─── */
 function animateCounter(el) {
   const target = parseInt(el.getAttribute('data-count'));
-  const prefix = el.getAttribute('data-prefix') || '';
-  const suffix = el.textContent.replace(/[\d]+/,'').replace(prefix,'');
   let current = 0;
-  const increment = target / 50;
+  const duration = 1600; 
+  const stepTime = Math.max(Math.floor(duration / target), 15);
+  
   const timer = setInterval(() => {
-    current = Math.min(current + increment, target);
-    el.textContent = prefix + Math.floor(current) + suffix;
-    if (current >= target) clearInterval(timer);
-  }, 24);
+    current += 1;
+    if (current >= target) {
+      el.textContent = target + (target === 100 ? '%' : target === 15 ? '+' : '');
+      clearInterval(timer);
+    } else {
+      el.textContent = current;
+    }
+  }, stepTime);
 }
+
 const statNums = document.querySelectorAll('[data-count]');
 const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -2400,17 +2101,7 @@ function handleSubmit(btn) {
   btn.textContent = '✓ DISPATCH RECEIVED — WE\'LL BE IN TOUCH';
   btn.style.background = 'var(--volt)';
   btn.style.cursor = 'default';
-  btn.disabled = true;
 }
-
-/* ─── PARALLAX HERO GRID ─── */
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const heroGrid = document.querySelector('.hero-grid');
-  if (heroGrid && scrollY < window.innerHeight) {
-    heroGrid.style.transform = `translateY(${scrollY * 0.3}px)`;
-  }
-});
 </script>
 </body>
 </html>
